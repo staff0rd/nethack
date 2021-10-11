@@ -66,13 +66,16 @@ const useTelnetClient = (io) => {
           "conn",
           "\r\n*** TELNET CONNECTION ERROR: " + err.message + " ***\r\n"
         );
-      })
-      .connect({
-        host: "localhost",
-        port: 23,
-        // shellPrompt: "/ $#",
-        timeout: 5000,
       });
+
+    connection.connect({
+      host: "localhost",
+      port: 23,
+      // shellPrompt: "/ $#",
+      timeout: 5000,
+      echoLines: 0,
+      stripShellPrompt: false,
+    });
   });
 };
 exports.useTelnetClient = useTelnetClient;
