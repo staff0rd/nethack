@@ -6,7 +6,6 @@ import { dgamelaunchMachine } from "./machines/dgamelaunchMachine";
 import { useSocketIo } from "./useSocketIo";
 
 const App = () => {
-  const { connected, emit } = useSocketIo();
   const dgamelaunchService = useInterpret(dgamelaunchMachine);
   return (
     <GlobalStateContext.Provider value={{ dgamelaunchService }}>

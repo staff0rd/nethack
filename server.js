@@ -1,5 +1,4 @@
 const express = require("express");
-const { useSshClient } = require("./useSshClient");
 const { useTelnetClient } = require("./useTelnetClient");
 const app = express();
 const http = require("http").Server(app);
@@ -21,7 +20,6 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-//useSshClient(io);
 useTelnetClient(io);
 
 http.listen(3001, () => {
