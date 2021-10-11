@@ -12,7 +12,7 @@ window.addEventListener(
 
     const socket = io(); //.connect();
     socket.on("connect", function () {
-      term.write("\r\n*** Connected to backend ***\r\n");
+      //term.write("\r\n*** Connected to backend ***\r\n");
     });
 
     // Browser -> Backend
@@ -25,8 +25,12 @@ window.addEventListener(
       term.write(data);
     });
 
+    socket.on("conn", (data) => {
+      console.log(data);
+    });
+
     socket.on("disconnect", function () {
-      term.write("\r\n*** Disconnected from backend ***\r\n");
+      //term.write("\r\n*** Disconnected from backend ***\r\n");
     });
   },
   false

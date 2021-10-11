@@ -1,5 +1,6 @@
 const express = require("express");
 const { useSshClient } = require("./useSshClient");
+const { useTelnetClient } = require("./useTelnetClient");
 const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http, {
@@ -26,7 +27,8 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-useSshClient(io);
+//useSshClient(io);
+useTelnetClient(io);
 
 http.listen(3000, () => {
   console.log("Listening on http://localhost:3000");
