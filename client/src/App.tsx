@@ -1,20 +1,28 @@
-import { Button, Paper, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useInterpret } from "@xstate/react";
 import { DgameLaunch } from "./DgameLaunch";
 import { GlobalStateContext } from "./GlobalStateContext";
 import { dgamelaunchMachine } from "./machines/dgamelaunchMachine";
-import { useSocketIo } from "./useSocketIo";
 
 const App = () => {
+  const theme = useTheme();
   const dgamelaunchService = useInterpret(dgamelaunchMachine);
   return (
     <GlobalStateContext.Provider value={{ dgamelaunchService }}>
-      <div className="App">
-        <Paper>
-          <Typography variant="h1">Do the thing</Typography>
+      <Box
+        sx={{
+          backgroundColor: theme.palette.background.default,
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box sx={{}}>
           <DgameLaunch />
-        </Paper>
-      </div>
+        </Box>
+      </Box>
     </GlobalStateContext.Provider>
   );
 };
