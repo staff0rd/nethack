@@ -11,13 +11,28 @@ export const Home = () => {
       <Grid item>
         <Button
           variant="outlined"
-          onClick={() => services.dgamelaunchService.send(EventTypes.Login)}
+          onClick={() => services.dgamelaunchService.send(EventTypes.GoToLogin)}
         >
           Login
         </Button>
       </Grid>
       <Grid item>
-        <Button variant="outlined">Register new user</Button>
+        <Button
+          variant="outlined"
+          onClick={() =>
+            services.dgamelaunchService.send(EventTypes.GoToRegisterNewUser)
+          }
+        >
+          Register new user
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button
+          variant="outlined"
+          onClick={() => services.dgamelaunchService.send(EventTypes.Automate)}
+        >
+          Automate
+        </Button>
       </Grid>
     </Grid>
   );

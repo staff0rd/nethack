@@ -1,20 +1,20 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { GlobalStateContext } from "../GlobalStateContext";
 import { useSelector } from "@xstate/react";
 import { ActorRefFrom } from "xstate";
-import { EventTypes, loginMachine } from "../machines/DgameLaunch/loginMachine";
+import {
+  EventTypes,
+  registerMachine,
+} from "../machines/DgameLaunch/registerMachine";
 
-export const Login = () => {
+export const Register = () => {
   const theme = useTheme();
   const globalServices = useContext(GlobalStateContext);
-  const loginService = useSelector(
+  const registerService = useSelector(
     globalServices.dgamelaunchService,
-    (state) => state.children.login as ActorRefFrom<typeof loginMachine>
+    (state) => state.children.register as ActorRefFrom<typeof registerMachine>
   );
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
   return (
     <Box
@@ -35,7 +35,7 @@ export const Login = () => {
         variant="h3"
         sx={{ marginLeft: 1, color: theme.palette.text.primary }}
       >
-        Login
+        Register
       </Typography>
       <Box
         sx={{
@@ -48,18 +48,31 @@ export const Login = () => {
           label="Username"
           variant="standard"
           inputProps={{
-            maxLength: 10,
+            maxLength: 20,
           }}
-          onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
           label="Password"
+          type="password"
           variant="standard"
           inputProps={{
             maxLength: 10,
           }}
+        />
+        <TextField
+          label="Password (again)"
           type="password"
-          onChange={(e) => setPassword(e.target.value)}
+          variant="standard"
+          inputProps={{
+            maxLength: 10,
+          }}
+        />
+        <TextField
+          label="Email"
+          variant="standard"
+          inputProps={{
+            maxLength: 80,
+          }}
         />
       </Box>
       <Box
@@ -69,19 +82,9 @@ export const Login = () => {
           "& > :not(style)": { m: 1 },
         }}
       >
+        <Button>Register</Button>
         <Button
-          onClick={() => {
-            loginService.send({
-              type: EventTypes.ClickLogin,
-              username,
-              password,
-            });
-          }}
-        >
-          Login
-        </Button>
-        <Button
-          onClick={() => loginService.send({ type: EventTypes.ClickCancel })}
+          onClick={() => registerService.send({ type: EventTypes.ClickCancel })}
         >
           Cancel
         </Button>

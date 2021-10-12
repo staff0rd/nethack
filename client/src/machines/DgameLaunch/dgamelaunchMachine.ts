@@ -1,6 +1,7 @@
 import { createMachine, send } from "xstate";
 import { io } from "socket.io-client";
 import { loginMachine, States as loginStates } from "./loginMachine";
+import { registerMachine } from "./registerMachine";
 
 enum SocketEvents {
   Emit,
@@ -11,20 +12,29 @@ export enum States {
   Disconnected = "disconnected",
   Home = "home",
   Login = "login",
+  RegisterNewUser = "register-new-user",
+  Automate = "automate",
 }
 
 export enum EventTypes {
   Connected = "connected",
   Disconnected = "disconnected",
-  Login = "login",
+  GoToLogin = "login",
+  GoToRegisterNewUser = "register-new-user",
+  Automate = "send-blank",
 }
 
 export type Events =
   | { type: EventTypes.Connected }
   | { type: EventTypes.Disconnected }
-  | { type: EventTypes.Login };
+  | { type: EventTypes.GoToRegisterNewUser }
+  | { type: EventTypes.Automate }
+  | { type: EventTypes.GoToLogin };
 
 export type Context = {};
+
+const sendSocket = (payload: string) =>
+  send({ type: "data", payload }, { to: "socket" });
 
 export const dgamelaunchMachine = createMachine<Context, Events>({
   initial: States.Init,
@@ -58,6 +68,7 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       });
 
       onEvent((e) => {
+        console.log("sending: ", e.payload);
         socket.emit(e.type, e.payload);
       });
     },
@@ -76,25 +87,53 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
     [States.Home]: {
       on: {
         [EventTypes.Disconnected]: States.Disconnected,
-        [EventTypes.Login]: States.Login,
+        [EventTypes.GoToLogin]: States.Login,
+        [EventTypes.GoToRegisterNewUser]: States.RegisterNewUser,
+        [EventTypes.Automate]: States.Automate,
+      },
+    },
+    [States.RegisterNewUser]: {
+      entry: sendSocket("r"),
+      invoke: {
+        src: () => registerMachine,
+        id: "register",
+        onDone: [
+          {
+            cond: (c, e) => e.data.result === loginStates.Cancel,
+            actions: sendSocket("\n") as any,
+            target: States.Home,
+          },
+        ],
       },
     },
     [States.Login]: {
-      entry: send({ type: "data", payload: "l" }, { to: "socket" }),
+      entry: sendSocket("l"),
       invoke: {
         src: loginMachine,
         id: "login",
         onDone: [
           {
             cond: (c, e) => e.data.result === loginStates.Cancel,
+            actions: sendSocket("\n") as any,
+            target: States.Home,
+          },
+          {
+            cond: (c, e) => e.data.result === loginStates.LoggedIn,
             actions: [
-              (c, e) => console.log(e.data),
-              send({ type: "data", payload: "\n" }, { to: "socket" }),
+              (c, e) => console.log("login dgame", e),
+              send(
+                (c, e) => ({ type: "data", payload: `${e.data.username}\n` }),
+                { to: "socket" }
+              ),
+
+              // (c, e) => sendSocket(`${e.data.username}\n`),
+              // (c, e) => sendSocket(`${e.data.password}\n`),
             ],
             target: States.Home,
           },
         ],
       },
     },
+    [States.Automate]: {},
   },
 });

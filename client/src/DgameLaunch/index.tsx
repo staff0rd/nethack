@@ -5,6 +5,7 @@ import { GlobalStateContext } from "../GlobalStateContext";
 import { Home } from "./Home";
 import { States } from "../machines/DgameLaunch/dgamelaunchMachine";
 import { Login } from "./Login";
+import { Register } from "./Register";
 
 export const DgameLaunch = () => {
   const globalServices = useContext(GlobalStateContext);
@@ -27,6 +28,9 @@ export const DgameLaunch = () => {
     }
     case States.Login: {
       return <Login />;
+    }
+    case States.RegisterNewUser: {
+      return <Register />;
     }
   }
 
