@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { useInterpret } from "@xstate/react";
 import { DgameLaunch } from "./DgameLaunch";
 import { GlobalStateContext } from "./GlobalStateContext";
-import { dgamelaunchMachine } from "./machines/dgamelaunchMachine";
+import { dgamelaunchMachine } from "./machines/DgameLaunch/dgamelaunchMachine";
 
 const App = () => {
   const theme = useTheme();

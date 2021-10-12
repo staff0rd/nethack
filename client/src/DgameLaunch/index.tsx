@@ -3,7 +3,7 @@ import { useSelector } from "@xstate/react";
 import { useContext } from "react";
 import { GlobalStateContext } from "../GlobalStateContext";
 import { Home } from "./Home";
-import { States } from "../machines/dgamelaunchMachine";
+import { States } from "../machines/DgameLaunch/dgamelaunchMachine";
 import { Login } from "./Login";
 
 export const DgameLaunch = () => {

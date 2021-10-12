@@ -1,7 +1,7 @@
 import { Button, Grid } from "@mui/material";
 import { useContext } from "react";
 import { GlobalStateContext } from "../GlobalStateContext";
-import { EventTypes } from "../machines/dgamelaunchMachine";
+import { EventTypes } from "../machines/DgameLaunch/dgamelaunchMachine";
 
 export const Home = () => {
   const services = useContext(GlobalStateContext);

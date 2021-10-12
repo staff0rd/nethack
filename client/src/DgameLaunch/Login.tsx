@@ -1,8 +1,18 @@
-import * as React from "react";
+import { useContext } from "react";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
+import { GlobalStateContext } from "../GlobalStateContext";
+import { useSelector } from "@xstate/react";
+import { ActorRefFrom } from "xstate";
+import { EventTypes, loginMachine } from "../machines/DgameLaunch/loginMachine";
 
 export const Login = () => {
   const theme = useTheme();
+  const globalServices = useContext(GlobalStateContext);
+  const loginService = useSelector(
+    globalServices.dgamelaunchService,
+    (state) => state.children.login as ActorRefFrom<typeof loginMachine>
+  );
+
   return (
     <Box
       component="form"
@@ -42,7 +52,11 @@ export const Login = () => {
         }}
       >
         <Button>Login</Button>
-        <Button>Cancel</Button>
+        <Button
+          onClick={() => loginService.send({ type: EventTypes.ClickCancel })}
+        >
+          Cancel
+        </Button>
       </Box>
     </Box>
   );

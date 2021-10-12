@@ -1,5 +1,10 @@
 import { createMachine, send } from "xstate";
 import { io } from "socket.io-client";
+import { loginMachine, States as loginStates } from "./loginMachine";
+
+enum SocketEvents {
+  Emit,
+}
 
 export enum States {
   Init = "init",
@@ -53,13 +58,7 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       });
 
       onEvent((e) => {
-        switch (e.type) {
-          case EventTypes.Login: {
-            console.log("send");
-            socket.emit("data", "l");
-            break;
-          }
-        }
+        socket.emit(e.type, e.payload);
       });
     },
   },
@@ -81,7 +80,21 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       },
     },
     [States.Login]: {
-      entry: send(EventTypes.Login, { to: "socket" }),
+      entry: send({ type: "data", payload: "l" }, { to: "socket" }),
+      invoke: {
+        src: loginMachine,
+        id: "login",
+        onDone: [
+          {
+            cond: (c, e) => e.data.result === loginStates.Cancel,
+            actions: [
+              (c, e) => console.log(e.data),
+              send({ type: "data", payload: "\n" }, { to: "socket" }),
+            ],
+            target: States.Home,
+          },
+        ],
+      },
     },
   },
 });
