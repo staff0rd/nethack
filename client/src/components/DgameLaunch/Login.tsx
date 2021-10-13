@@ -1,9 +1,12 @@
 import { useContext, useState } from "react";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
-import { GlobalStateContext } from "../GlobalStateContext";
+import { GlobalStateContext } from "../../GlobalStateContext";
 import { useSelector } from "@xstate/react";
 import { ActorRefFrom } from "xstate";
-import { EventTypes, loginMachine } from "../machines/DgameLaunch/loginMachine";
+import {
+  EventTypes,
+  loginMachine,
+} from "../../machines/DgameLaunch/loginMachine";
 
 export const Login = () => {
   const theme = useTheme();

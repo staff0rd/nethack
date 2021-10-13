@@ -1,9 +1,9 @@
 import { Typography, Box, useTheme } from "@mui/material";
 import { useSelector } from "@xstate/react";
 import { useContext } from "react";
-import { GlobalStateContext } from "../GlobalStateContext";
+import { GlobalStateContext } from "../../GlobalStateContext";
 import { LoggedOut } from "./LoggedOut";
-import { States } from "../machines/DgameLaunch/dgamelaunchMachine";
+import { States } from "../../machines/DgameLaunch/dgamelaunchMachine";
 import { Login } from "./Login";
 import { Register } from "./Register";
 
