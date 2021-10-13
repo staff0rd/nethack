@@ -23,5 +23,6 @@ app.get("/", (req, res) => {
 useTelnetClient(io);
 
 http.listen(3001, () => {
+  console.clear();
   console.log("Listening on http://localhost:3001");
 });

@@ -23,12 +23,8 @@ const App = () => {
     dgamelaunchMachine.withContext({ xterm: xtermRef })
   );
   useEffect(() => {
-    setShowTerminal(false);
+    setShowTerminal(true);
   }, []);
-  useEffect(() => {
-    if (showTerminal) {
-    }
-  }, [showTerminal]);
   return (
     <GlobalStateContext.Provider value={{ dgamelaunchService }}>
       <AppBar position="fixed">

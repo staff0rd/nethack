@@ -2,9 +2,12 @@ const AnsiParser = require("node-ansiparser");
 const showHidden = false;
 
 const useTelnetClient = (io) => {
+  // https://vt100.net/emu/dec_ansi_parser
+  // http://www.noah.org/python/pexpect/ANSI-X3.64.htm
+  // https://en.wikipedia.org/wiki/ANSI_escape_code#CSIsection
   const terminal = {
     inst_p: function (s) {
-      console.log(s);
+      //console.log("print", s);
     },
     inst_o: function (s) {
       showHidden && console.log("osc", s);
@@ -48,7 +51,8 @@ const useTelnetClient = (io) => {
           stream
             .on("data", function (d) {
               const data = d.toString("binary");
-              parser.parse(data);
+              //parser.parse(data);
+              process.stdout.write(d);
               io.emit("data", data);
             })
             .on("close", function () {

@@ -2,6 +2,7 @@ import { Button, Grid } from "@mui/material";
 import { useContext } from "react";
 import { GlobalStateContext } from "../../GlobalStateContext";
 import { EventTypes } from "../../machines/DgameLaunch/dgamelaunchMachine";
+import { Movement } from "../nethack/Movement";
 
 export const LoggedOut = () => {
   const services = useContext(GlobalStateContext);
@@ -27,12 +28,15 @@ export const LoggedOut = () => {
         </Button>
       </Grid>
       <Grid item>
-        {/* <Button
+        <Button
           variant="outlined"
           onClick={() => services.dgamelaunchService.send(EventTypes.Automate)}
         >
           Automate
-        </Button> */}
+        </Button>
+      </Grid>
+      <Grid xs={12} sx={{ padding: 2 }}>
+        <Movement />
       </Grid>
     </Grid>
   );

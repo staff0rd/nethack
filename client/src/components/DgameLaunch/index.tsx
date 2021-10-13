@@ -16,7 +16,7 @@ export const DgameLaunch = () => {
   const theme = useTheme();
 
   switch (state) {
-    case States.Home: {
+    case States.LoggedOut: {
       return (
         <Box>
           <Typography variant="h1" sx={{ color: theme.palette.text.primary }}>

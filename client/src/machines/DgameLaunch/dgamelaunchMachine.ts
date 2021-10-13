@@ -15,10 +15,9 @@ import { XTerm } from "xterm-for-react";
 export enum States {
   Init = "init",
   Disconnected = "disconnected",
-  Home = "home",
+  LoggedOut = "logged-out",
   Login = "login",
   RegisterNewUser = "register-new-user",
-  Automate = "automate",
 }
 
 export enum EventTypes {
@@ -27,6 +26,7 @@ export enum EventTypes {
   GoToLogin = "login",
   GoToRegisterNewUser = "register-new-user",
   Automate = "send-blank",
+  SocketEmit = "socket-emit",
 }
 
 export type Events =
@@ -34,6 +34,7 @@ export type Events =
   | { type: EventTypes.Disconnected }
   | { type: EventTypes.GoToRegisterNewUser }
   | { type: EventTypes.Automate }
+  | { type: EventTypes.SocketEmit; value: string }
   | { type: EventTypes.GoToLogin };
 
 export type Context = {
@@ -96,24 +97,36 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
   states: {
     [States.Init]: {
       on: {
-        [EventTypes.Connected]: States.Home,
+        [EventTypes.Connected]: States.LoggedOut,
       },
     },
     [States.Disconnected]: {
       on: {
-        [EventTypes.Connected]: States.Home,
+        [EventTypes.Connected]: States.LoggedOut,
       },
     },
-    [States.Home]: {
+    [States.LoggedOut]: {
       on: {
         [EventTypes.Disconnected]: States.Disconnected,
         [EventTypes.GoToLogin]: States.Login,
         [EventTypes.GoToRegisterNewUser]: States.RegisterNewUser,
-        [EventTypes.Automate]: States.Automate,
+        [EventTypes.Automate]: {
+          actions: [
+            sendSocket("l") as any,
+            sendSocket("stafford\n"),
+            sendSocket("stafford\n"),
+            sendSocket("p"),
+          ],
+        },
+        [EventTypes.SocketEmit]: {
+          actions: sendSocket(
+            (c, e: { type: EventTypes.SocketEmit; value: string }) => e.value
+          ) as any,
+        },
       },
     },
     [States.RegisterNewUser]: {
-      entry: sendSocket("r"),
+      entry: sendSocket("r") as any,
       invoke: {
         src: () => registerMachine,
         id: "register",
@@ -121,13 +134,13 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
           {
             cond: (c, e) => e.data.result === loginStates.Cancel,
             actions: sendSocket("\n") as any,
-            target: States.Home,
+            target: States.LoggedOut,
           },
         ],
       },
     },
     [States.Login]: {
-      entry: sendSocket("l"),
+      entry: sendSocket("l") as any,
       invoke: {
         src: loginMachine,
         id: "login",
@@ -135,7 +148,7 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
           {
             cond: (c, e) => e.data.result === loginStates.Cancel,
             actions: sendSocket("\n") as any,
-            target: States.Home,
+            target: States.LoggedOut,
           },
           {
             cond: (c, e) => e.data.result === loginStates.LoggedIn,
@@ -143,17 +156,10 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
               sendSocket((c, e) => `${e.data.username}\n`),
               sendSocket((c, e) => `${e.data.password}\n`),
             ],
-            target: States.Home,
+            target: States.LoggedOut,
           },
         ],
       },
-    },
-    [States.Automate]: {
-      entry: [
-        sendSocket("l"),
-        sendSocket("stafford\n"),
-        sendSocket("stafford\n"),
-      ],
     },
   },
 });
