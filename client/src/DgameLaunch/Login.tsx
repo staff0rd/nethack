@@ -19,6 +19,13 @@ export const Login = () => {
   return (
     <Box
       component="form"
+      onSubmit={() => {
+        loginService.send({
+          type: EventTypes.ClickLogin,
+          username,
+          password,
+        });
+      }}
       sx={{
         borderStyle: "solid",
         borderColor: theme.palette.divider,
@@ -69,17 +76,7 @@ export const Login = () => {
           "& > :not(style)": { m: 1 },
         }}
       >
-        <Button
-          onClick={() => {
-            loginService.send({
-              type: EventTypes.ClickLogin,
-              username,
-              password,
-            });
-          }}
-        >
-          Login
-        </Button>
+        <Button type="submit">Login</Button>
         <Button
           onClick={() => loginService.send({ type: EventTypes.ClickCancel })}
         >
