@@ -1,12 +1,4 @@
-import {
-  AnyEventObject,
-  createMachine,
-  DoneInvokeEvent,
-  EventObject,
-  ExprWithMeta,
-  send,
-  SendExpr,
-} from "xstate";
+import { createMachine, EventObject, send } from "xstate";
 import { io } from "socket.io-client";
 import { loginMachine, States as loginStates } from "./loginMachine";
 import { registerMachine } from "./registerMachine";
