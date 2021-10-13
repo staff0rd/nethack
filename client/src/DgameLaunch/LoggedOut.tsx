@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { GlobalStateContext } from "../GlobalStateContext";
 import { EventTypes } from "../machines/DgameLaunch/dgamelaunchMachine";
 
-export const Home = () => {
+export const LoggedOut = () => {
   const services = useContext(GlobalStateContext);
 
   return (
@@ -27,12 +27,12 @@ export const Home = () => {
         </Button>
       </Grid>
       <Grid item>
-        <Button
+        {/* <Button
           variant="outlined"
           onClick={() => services.dgamelaunchService.send(EventTypes.Automate)}
         >
           Automate
-        </Button>
+        </Button> */}
       </Grid>
     </Grid>
   );

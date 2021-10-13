@@ -52,6 +52,7 @@ export const Login = () => {
         }}
       >
         <TextField
+          autoFocus
           label="Username"
           variant="standard"
           inputProps={{

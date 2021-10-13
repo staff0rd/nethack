@@ -2,7 +2,7 @@ import { Typography, Box, useTheme } from "@mui/material";
 import { useSelector } from "@xstate/react";
 import { useContext } from "react";
 import { GlobalStateContext } from "../GlobalStateContext";
-import { Home } from "./Home";
+import { LoggedOut } from "./LoggedOut";
 import { States } from "../machines/DgameLaunch/dgamelaunchMachine";
 import { Login } from "./Login";
 import { Register } from "./Register";
@@ -22,7 +22,7 @@ export const DgameLaunch = () => {
           <Typography variant="h1" sx={{ color: theme.palette.text.primary }}>
             nethack
           </Typography>
-          <Home />
+          <LoggedOut />
         </Box>
       );
     }
