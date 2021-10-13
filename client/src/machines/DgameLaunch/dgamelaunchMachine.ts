@@ -1,11 +1,15 @@
-import { createMachine, send } from "xstate";
+import {
+  AnyEventObject,
+  createMachine,
+  DoneInvokeEvent,
+  EventObject,
+  ExprWithMeta,
+  send,
+  SendExpr,
+} from "xstate";
 import { io } from "socket.io-client";
 import { loginMachine, States as loginStates } from "./loginMachine";
 import { registerMachine } from "./registerMachine";
-
-enum SocketEvents {
-  Emit,
-}
 
 export enum States {
   Init = "init",
@@ -33,8 +37,16 @@ export type Events =
 
 export type Context = {};
 
-const sendSocket = (payload: string) =>
-  send({ type: "data", payload }, { to: "socket" });
+const sendSocket = <TContext, TEvent extends EventObject, T>(
+  payload:
+    | string
+    | (<TContext, TEvent extends EventObject>(c: TContext, e: any) => string)
+) =>
+  typeof payload === "string"
+    ? send({ type: "data", payload }, { to: "socket" })
+    : send((c, e) => ({ type: "data", payload: payload(c, e) }), {
+        to: "socket",
+      });
 
 export const dgamelaunchMachine = createMachine<Context, Events>({
   initial: States.Init,
@@ -56,7 +68,7 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       socket.on("connect_error", (err) => console.error("socket error", err));
       // // Backend -> Browser
       socket.on("data", function (data) {
-        console.log(data);
+        console.debug(data);
       });
       socket.on("conn", (data) => {
         console.log(data);
@@ -120,20 +132,20 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
           {
             cond: (c, e) => e.data.result === loginStates.LoggedIn,
             actions: [
-              (c, e) => console.log("login dgame", e),
-              send(
-                (c, e) => ({ type: "data", payload: `${e.data.username}\n` }),
-                { to: "socket" }
-              ),
-
-              // (c, e) => sendSocket(`${e.data.username}\n`),
-              // (c, e) => sendSocket(`${e.data.password}\n`),
+              sendSocket((c, e) => `${e.data.username}\n`),
+              sendSocket((c, e) => `${e.data.password}\n`),
             ],
             target: States.Home,
           },
         ],
       },
     },
-    [States.Automate]: {},
+    [States.Automate]: {
+      entry: [
+        sendSocket("l"),
+        sendSocket("stafford\n"),
+        sendSocket("stafford\n"),
+      ],
+    },
   },
 });
