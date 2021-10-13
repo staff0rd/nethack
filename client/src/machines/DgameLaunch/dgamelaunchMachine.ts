@@ -10,6 +10,7 @@ import {
 import { io } from "socket.io-client";
 import { loginMachine, States as loginStates } from "./loginMachine";
 import { registerMachine } from "./registerMachine";
+import { XTerm } from "xterm-for-react";
 
 export enum States {
   Init = "init",
@@ -35,7 +36,9 @@ export type Events =
   | { type: EventTypes.Automate }
   | { type: EventTypes.GoToLogin };
 
-export type Context = {};
+export type Context = {
+  xterm: React.RefObject<XTerm>;
+};
 
 const sendSocket = <TContext, TEvent extends EventObject, T>(
   payload:
@@ -53,7 +56,7 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
   id: "dgamelaunch",
   invoke: {
     id: "socket",
-    src: () => (callback, onEvent) => {
+    src: (context) => (callback, onEvent) => {
       // see https://github.com/statelyai/xstate/issues/549#issuecomment-512004633
       const socket = io("http://localhost:3001", {
         secure: true,
@@ -68,10 +71,15 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       socket.on("connect_error", (err) => console.error("socket error", err));
       // // Backend -> Browser
       socket.on("data", function (data) {
+        context.xterm.current!.terminal.write(data);
         console.debug(data);
       });
       socket.on("conn", (data) => {
         console.log(data);
+      });
+
+      context.xterm.current!.terminal.onKey(function (ev) {
+        socket.emit("data", ev.key);
       });
 
       socket.on("disconnect", function () {

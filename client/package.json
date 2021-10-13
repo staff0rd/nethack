@@ -9,13 +9,15 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.3",
     "@mui/material": "^5.0.3",
     "@xstate/react": "^1.6.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "socket.io": "^4.2.0",
     "socket.io-client": "^4.2.0",
-    "xstate": "^4.25.0"
+    "xstate": "^4.25.0",
+    "xterm-for-react": "^1.0.4"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

@@ -5,7 +5,6 @@ const useTelnetClient = (io) => {
   const terminal = {
     inst_p: function (s) {
       console.log(s);
-      io.emit("data", s);
     },
     inst_o: function (s) {
       showHidden && console.log("osc", s);
@@ -50,6 +49,7 @@ const useTelnetClient = (io) => {
             .on("data", function (d) {
               const data = d.toString("binary");
               parser.parse(data);
+              io.emit("data", data);
             })
             .on("close", function () {
               connection.end();
