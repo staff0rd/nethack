@@ -35,7 +35,7 @@ export const LoggedOut = () => {
           Automate
         </Button>
       </Grid>
-      <Grid xs={12} sx={{ padding: 2 }}>
+      <Grid sx={{ padding: 2 }}>
         <Movement />
       </Grid>
     </Grid>
