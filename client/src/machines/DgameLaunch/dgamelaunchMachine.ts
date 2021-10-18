@@ -70,13 +70,14 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       socket.on("conn", (data) => {
         console.log(data);
       });
-
+      document.addEventListener("keydown", (e) => {
+        context.xterm.current?.terminal.keyDown(e);
+      });
       context.xterm.current!.terminal.onKey(function (ev) {
         socket.emit("data", ev.key);
       });
 
       socket.on("disconnect", function () {
-        //term.write("\r\n*** Disconnected from backend ***\r\n");
         send(EventTypes.Disconnected);
       });
 

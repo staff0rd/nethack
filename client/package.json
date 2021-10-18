@@ -17,7 +17,7 @@
     "socket.io": "^4.2.0",
     "socket.io-client": "^4.2.0",
     "xstate": "^4.25.0",
-    "xterm-for-react": "^1.0.4"
+    "xterm-for-react": "github:staff0rd/xterm-for-react#master"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
