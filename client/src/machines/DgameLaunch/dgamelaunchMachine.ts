@@ -3,6 +3,8 @@ import { io } from "socket.io-client";
 import { loginMachine, States as loginStates } from "./loginMachine";
 import { registerMachine } from "./registerMachine";
 import { XTerm } from "xterm-for-react";
+import { terminalParser } from "./terminalParser";
+import { assign } from "xstate/lib/actionTypes";
 
 export enum States {
   Init = "init",
@@ -19,6 +21,8 @@ export enum EventTypes {
   GoToRegisterNewUser = "register-new-user",
   Automate = "send-blank",
   SocketEmit = "socket-emit",
+  ClearParser = "clear-parser",
+  PrintParser = "print-parser",
 }
 
 export type Events =
@@ -26,6 +30,8 @@ export type Events =
   | { type: EventTypes.Disconnected }
   | { type: EventTypes.GoToRegisterNewUser }
   | { type: EventTypes.Automate }
+  | { type: EventTypes.ClearParser }
+  | { type: EventTypes.PrintParser }
   | { type: EventTypes.SocketEmit; value: string }
   | { type: EventTypes.GoToLogin };
 
@@ -50,6 +56,10 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
   invoke: {
     id: "socket",
     src: (context) => (callback, onEvent) => {
+      // https://vt100.net/emu/dec_ansi_parser
+      // http://www.noah.org/python/pexpect/ANSI-X3.64.htm
+      // https://en.wikipedia.org/wiki/ANSI_escape_code#CSIsection
+
       // see https://github.com/statelyai/xstate/issues/549#issuecomment-512004633
       const socket = io("http://localhost:3001", {
         secure: true,
@@ -64,8 +74,8 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       socket.on("connect_error", (err) => console.error("socket error", err));
       // // Backend -> Browser
       socket.on("data", function (data) {
+        terminalParser.parse(data);
         context.xterm.current!.terminal.write(data);
-        console.debug(data);
       });
       socket.on("conn", (data) => {
         console.log(data);
@@ -103,6 +113,12 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
         [EventTypes.Disconnected]: States.Disconnected,
         [EventTypes.GoToLogin]: States.Login,
         [EventTypes.GoToRegisterNewUser]: States.RegisterNewUser,
+        [EventTypes.ClearParser]: {
+          actions: terminalParser.clear as any,
+        },
+        [EventTypes.PrintParser]: {
+          actions: terminalParser.print as any,
+        },
         [EventTypes.Automate]: {
           actions: [
             sendSocket("l") as any,

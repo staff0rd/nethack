@@ -35,8 +35,28 @@ export const LoggedOut = () => {
           Automate
         </Button>
       </Grid>
-      <Grid sx={{ padding: 2 }}>
+      <Grid item sx={{ padding: 2 }}>
         <Movement />
+      </Grid>
+      <Grid item>
+        <Button
+          variant="outlined"
+          onClick={() =>
+            services.dgamelaunchService.send(EventTypes.PrintParser)
+          }
+        >
+          Print Terminal
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button
+          variant="outlined"
+          onClick={() =>
+            services.dgamelaunchService.send(EventTypes.ClearParser)
+          }
+        >
+          Clear Terminal
+        </Button>
       </Grid>
     </Grid>
   );

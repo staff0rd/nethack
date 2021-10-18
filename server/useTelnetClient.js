@@ -1,38 +1,4 @@
-const AnsiParser = require("node-ansiparser");
-const showHidden = false;
-
 const useTelnetClient = (io) => {
-  // https://vt100.net/emu/dec_ansi_parser
-  // http://www.noah.org/python/pexpect/ANSI-X3.64.htm
-  // https://en.wikipedia.org/wiki/ANSI_escape_code#CSIsection
-  const terminal = {
-    inst_p: function (s) {
-      //console.log("print", s);
-    },
-    inst_o: function (s) {
-      showHidden && console.log("osc", s);
-    },
-    inst_x: function (flag) {
-      showHidden && console.log("execute", flag.charCodeAt(0));
-    },
-    inst_c: function (collected, params, flag) {
-      showHidden && console.log("csi", collected, params, flag);
-    },
-    inst_e: function (collected, flag) {
-      showHidden && console.log("esc", collected, flag);
-    },
-    inst_H: function (collected, params, flag) {
-      showHidden && console.log("dcs-Hook", collected, params, flag);
-    },
-    inst_P: function (dcs) {
-      showHidden && console.log("dcs-Put", dcs);
-    },
-    inst_U: function () {
-      showHidden && console.log("dcs-Unhook");
-    },
-  };
-  const parser = new AnsiParser(terminal);
-
   const Telnet = require("telnet-client");
   io.on("connection", function (socket) {
     const connection = new Telnet();
