@@ -23,10 +23,11 @@ export const parseMap = (instructions: Sequences[]): string => {
       // exclude top 1 and bottom 2 lines
       if (y > 1 && y < 23) {
         for (let i = 0; i < inst.s.length; i++) {
-          try {
-            screen[y][x] = inst.s[i];
-          } catch {
-            console.log(x, y);
+          const value = inst.s[i];
+          if (!value.match(/[a-zA-Z@*$]/)) {
+            screen[y][x] = value;
+          } else {
+            screen[y][x] = ".";
           }
           x++;
         }
@@ -35,7 +36,7 @@ export const parseMap = (instructions: Sequences[]): string => {
   });
 
   return trimMap(screen)
-    .map((p) => p.join(""))
+    .map((p) => p.join("").trimEnd())
     .join("\n");
 };
 
