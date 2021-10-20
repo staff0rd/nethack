@@ -4,7 +4,6 @@ import { loginMachine, States as loginStates } from "./loginMachine";
 import { registerMachine } from "./registerMachine";
 import { XTerm } from "xterm-for-react";
 import { terminalParser } from "./terminalParser";
-import { assign } from "xstate/lib/actionTypes";
 
 export enum States {
   Init = "init",
@@ -56,10 +55,6 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
   invoke: {
     id: "socket",
     src: (context) => (callback, onEvent) => {
-      // https://vt100.net/emu/dec_ansi_parser
-      // http://www.noah.org/python/pexpect/ANSI-X3.64.htm
-      // https://en.wikipedia.org/wiki/ANSI_escape_code#CSIsection
-
       // see https://github.com/statelyai/xstate/issues/549#issuecomment-512004633
       const socket = io("http://localhost:3001", {
         secure: true,

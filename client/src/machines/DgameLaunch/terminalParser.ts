@@ -1,17 +1,5 @@
 import AnsiParser from "node-ansiparser";
 
-type SequenceInstruction = {
-  instruction:
-    | "print"
-    | "osc"
-    | "execute"
-    | "csi"
-    | "esc"
-    | "dcs-Hook"
-    | "dcs-Put"
-    | "dcs-Unhook";
-};
-
 type PrintSequence = {
   s: string;
   instruction: "print";
@@ -27,7 +15,7 @@ type ExecuteSequence = {
 type CsiSequence = {
   instruction: "csi";
   collected: string;
-  params: string;
+  params: any[];
   flag: string;
 };
 type EscSequence = {
@@ -43,7 +31,7 @@ type DcsHook = {
 };
 type DcsPut = { instruction: "dcs-Put"; dcs: string };
 type DcsUnhook = { instruction: "dcs-Unhook" };
-type Sequences =
+export type Sequences =
   | PrintSequence
   | OscSequence
   | ExecuteSequence
@@ -54,6 +42,10 @@ type Sequences =
   | DcsUnhook;
 
 export const terminal = {
+  // https://vt100.net/emu/dec_ansi_parser
+  // https://vt100.net/docs/vt510-rm/contents.html
+  // http://www.noah.org/python/pexpect/ANSI-X3.64.htm
+  // https://en.wikipedia.org/wiki/ANSI_escape_code#CSIsection
   inst_p: function (s: string) {
     instructions.push({ instruction: "print", s });
   },
@@ -63,7 +55,10 @@ export const terminal = {
   inst_x: function (flag: string) {
     instructions.push({ instruction: "execute", flag: flag.charCodeAt(0) });
   },
-  inst_c: function (collected: string, params: string, flag: string) {
+  inst_c: function (collected: string, params: any[], flag: string) {
+    if (params.length === 1 && params[0] === 2 && flag === "J")
+      // https://vt100.net/docs/vt510-rm/ED.html
+      instructions.length = 0;
     instructions.push({ instruction: "csi", collected, params, flag });
   },
   inst_e: function (collected: string, flag: string) {
