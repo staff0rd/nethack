@@ -1,4 +1,5 @@
 import AnsiParser from "node-ansiparser";
+import { ansi } from "./ansi";
 
 type PrintSequence = {
   s: string;
@@ -12,7 +13,7 @@ type ExecuteSequence = {
   instruction: "execute";
   flag: number;
 };
-type CsiSequence = {
+export type CsiSequence = {
   instruction: "csi";
   collected: string;
   params: any[];
@@ -56,10 +57,14 @@ export const terminal = {
     instructions.push({ instruction: "execute", flag: flag.charCodeAt(0) });
   },
   inst_c: function (collected: string, params: any[], flag: string) {
-    if (params.length === 1 && params[0] === 2 && flag === "J")
-      // https://vt100.net/docs/vt510-rm/ED.html
-      instructions.length = 0;
-    instructions.push({ instruction: "csi", collected, params, flag });
+    const instruction: CsiSequence = {
+      instruction: "csi",
+      collected,
+      params,
+      flag,
+    };
+    if (ansi.isClear(instruction)) instructions.length = 0;
+    instructions.push(instruction);
   },
   inst_e: function (collected: string, flag: string) {
     instructions.push({ instruction: "esc", collected, flag });
@@ -76,10 +81,15 @@ export const terminal = {
 };
 
 const instructions: Sequences[] = [];
+const sinceLastClear: Sequences[] = [];
 const parser = new AnsiParser(terminal);
 
 export const terminalParser = {
-  parse: (data: string) => parser.parse(data),
-  clear: () => (instructions.length = 0),
-  print: () => console.log(JSON.stringify(instructions, null, 2)),
+  parse: (data: string) => {
+    instructions.length = 0;
+    parser.parse(data);
+    return instructions;
+  },
+  clear: () => (sinceLastClear.length = 0),
+  print: () => console.log(JSON.stringify(sinceLastClear, null, 2)),
 };

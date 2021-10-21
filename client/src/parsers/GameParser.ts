@@ -1,14 +1,17 @@
 import { range, every, clone } from "lodash";
-import { parseBottomStatusLine } from "./parseBottomStatusLine";
-import { parseTopStatusLine } from "./parseTopStatusLine";
+import { ansi } from "./ansi";
+import { BottomStatus, parseBottomStatusLine } from "./parseBottomStatusLine";
+import { parseTopStatusLine, TopStatus } from "./parseTopStatusLine";
 import { Sequences } from "./terminalParser";
 
 export class GameParser {
   private x = 0;
   private y = 0;
   private screen = range(1, 26).map(() => range(0, 80).map((c) => " "));
-  private topStatusRaw = range(0, 80).map((p) => " ");
-  private bottomStatusRaw = range(0, 80).map((p) => " ");
+  private topStatusRaw!: string[];
+  private bottomStatusRaw!: string[];
+  topStatus: TopStatus | undefined;
+  bottomStatus: BottomStatus | undefined;
 
   public get map() {
     return trimMap(this.screen)
@@ -16,17 +19,21 @@ export class GameParser {
       .join("\n");
   }
 
-  public get topStatus() {
-    return parseTopStatusLine(this.topStatusRaw.join(""));
+  constructor() {
+    this.clear();
   }
-  public get bottomStatus() {
-    return parseBottomStatusLine(this.bottomStatusRaw.join(""));
+
+  clear() {
+    this.topStatusRaw = range(0, 80).map((p) => " ");
+    this.bottomStatusRaw = range(0, 80).map((p) => " ");
   }
 
   parse(instructions: Sequences[]) {
-    instructions.forEach((inst) => {
+    instructions?.forEach((inst) => {
       if (inst.instruction === "csi") {
-        if (inst.flag === "H") {
+        if (ansi.isClear(inst)) {
+          this.clear();
+        } else if (inst.flag === "H") {
           // https://vt100.net/docs/vt510-rm/CUP.html
           if (inst.params.length === 1 && inst.params[0] === 0) {
             this.x = 1;
@@ -36,8 +43,7 @@ export class GameParser {
             this.y = inst.params[0];
           }
         }
-      }
-      if (inst.instruction === "print") {
+      } else if (inst.instruction === "print") {
         // exclude top 1 and bottom 2 lines
         if (this.y > 1 && this.y < 23) {
           for (let i = 0; i < inst.s.length; i++) {
@@ -56,6 +62,8 @@ export class GameParser {
               this.x++;
             }
           }
+          const topStatus = parseTopStatusLine(this.topStatusRaw.join(""));
+          if (topStatus) this.topStatus = topStatus;
         } else if (this.y === 24) {
           for (let i = 0; i < inst.s.length; i++) {
             {
@@ -63,6 +71,10 @@ export class GameParser {
               this.x++;
             }
           }
+          const bottomStatus = parseBottomStatusLine(
+            this.bottomStatusRaw.join("")
+          );
+          if (bottomStatus) this.bottomStatus = bottomStatus;
         }
       }
     });

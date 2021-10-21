@@ -4,6 +4,7 @@ import { loginMachine, States as loginStates } from "./loginMachine";
 import { registerMachine } from "./registerMachine";
 import { XTerm } from "xterm-for-react";
 import { terminalParser } from "../../parsers/terminalParser";
+import { GameParser } from "../../parsers/GameParser";
 
 export enum States {
   Init = "init",
@@ -62,6 +63,7 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
         rejectUnauthorized: false,
         transports: ["websocket"],
       });
+      const gameParser = new GameParser();
       console.log("connecting to server");
       socket.on("connect", () => {
         callback(EventTypes.Connected);
@@ -69,7 +71,9 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       socket.on("connect_error", (err) => console.error("socket error", err));
       // // Backend -> Browser
       socket.on("data", function (data) {
-        terminalParser.parse(data);
+        const instructions = terminalParser.parse(data);
+        gameParser.parse(instructions);
+        console.log(gameParser.bottomStatus);
         context.xterm.current!.terminal.write(data);
       });
       socket.on("conn", (data) => {

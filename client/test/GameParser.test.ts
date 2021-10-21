@@ -31,7 +31,7 @@ describe("GameParser", () => {
       expect(parser.topStatus.rank).toBe("Stafford the Aspirant");
     });
     it("should parse bottomStatus", () => {
-      expect(parser.bottomStatus.maxHitPoints).toBe(16);
+      expect(parser.bottomStatus?.maxHitPoints).toBe(16);
     });
   });
   describe("dungeon_screen_2", () => {

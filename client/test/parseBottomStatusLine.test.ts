@@ -44,72 +44,72 @@ describe("parseBottomStatusLine", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46 Something   "
     );
-    expect(result.dungeonLevel).toBe(1);
+    expect(result?.dungeonLevel).toBe(1);
   });
   it("should parse gold", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46 Something   "
     );
-    expect(result.gold).toBe(0);
+    expect(result?.gold).toBe(0);
   });
   it("should parse currentHitpoints", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46 Something   "
     );
-    expect(result.currentHitPoints).toBe(11);
+    expect(result?.currentHitPoints).toBe(11);
   });
   it("should parse maxHitPoints", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46 Something   "
     );
-    expect(result.maxHitPoints).toBe(11);
+    expect(result?.maxHitPoints).toBe(11);
   });
   it("should parse currentPower", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46 Something   "
     );
-    expect(result.currentPower).toBe(7);
+    expect(result?.currentPower).toBe(7);
   });
   it("should parse maxPower", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46 Something   "
     );
-    expect(result.maxPower).toBe(7);
+    expect(result?.maxPower).toBe(7);
   });
   it("should parse armorClass", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46 Something   "
     );
-    expect(result.armorClass).toBe(9);
+    expect(result?.armorClass).toBe(9);
   });
   it("should parse experienceLevel", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46 Something   "
     );
-    expect(result.experienceLevel).toBe(1);
+    expect(result?.experienceLevel).toBe(1);
   });
   it("should parse experiencePoints", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46    "
     );
-    expect(result.experiencePoints).toBe(0);
+    expect(result?.experiencePoints).toBe(0);
   });
   it("should parse time", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46 Something   "
     );
-    expect(result.time).toBe(46);
+    expect(result?.time).toBe(46);
   });
   it("should parse status", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46 Something   "
     );
-    expect(result.status).toBe("Something");
+    expect(result?.status).toBe("Something");
   });
   it("should parse empty status", () => {
     const result = parseBottomStatusLine(
       "Dlvl:1  $:0  HP:11(11) Pw:7(7) AC:9  Xp:1/0 T:46   "
     );
-    expect(result.status).toBe("");
+    expect(result?.status).toBe("");
   });
 });
