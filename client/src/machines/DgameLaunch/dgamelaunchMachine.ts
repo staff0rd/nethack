@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { loginMachine, States as loginStates } from "./loginMachine";
 import { registerMachine } from "./registerMachine";
 import { XTerm } from "xterm-for-react";
-import { terminalParser } from "./terminalParser";
+import { terminalParser } from "../../parsers/terminalParser";
 
 export enum States {
   Init = "init",

@@ -37,7 +37,7 @@ Your current hunger status, ranging from Satiated down to Fainting. If your hung
 Additional status flags may appear after the hunger status: Conf when you're confused, FoodPois or Ill when sick, Blind when you can't see, Stun when stunned, and Hallu when hallucinating.
 */
 
-import { parseTopStatusLine } from "../src/machines/DgameLaunch/gameParser";
+import { parseTopStatusLine } from "parsers/parseTopStatusLine";
 
 describe("parseTopStatusLine", () => {
   it("should parse rank", () => {

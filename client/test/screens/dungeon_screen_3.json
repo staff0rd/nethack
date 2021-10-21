@@ -1,0 +1,1188 @@
+[
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [2],
+    "flag": "J"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [3, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "-------"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [4, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "......|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [5, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|.....|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [6, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|.....|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [7, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "@"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": ".."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [35],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "x"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [8, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "d"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "..."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [35],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "x"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [9, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "-"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [33],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "+"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "-----"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [7, 73],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [23, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "Stafford the Aspirant        St:13 Dx:14 Co:11 In:9 Wi:18 Ch:10  Neutral S:0"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "Dlvl:1  $:0  HP:"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "14(14)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " Pw:"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 27],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "8(8)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 31],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " AC:7  Xp:1/0 T:1"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": " It is written in the Book of Mog:"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [2, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": " "
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [3, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": "     After the Creation, the cruel god Moloch rebelled"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [4, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": "     against the authority of Marduk the Creator."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [5, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": "     Moloch stole from Marduk the most powerful of all"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [6, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": "     the artifacts of the gods, the Amulet of Yendor,"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [7, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": "     and he hid it in the dark cavities of Gehennom, the"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [8, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": "     Under World, where he now lurks, and bides his time."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [9, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": " "
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [10, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": " Your god Mog seeks to possess the Amulet, and with it"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": " to gain deserved ascendance over the other gods."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [12, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": " "
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [13, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": " You, a newly trained Aspirant, have been heralded"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [14, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": " from birth as the instrument of Mog.  You are destined"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [15, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": " to recover the Amulet for your deity, or die in the"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [16, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": " attempt.  Your hour of destiny has come.  For the sake"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [17, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "print",
+    "s": " of us all:  Go bravely with Mog!"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [18, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "C"
+  },
+  {
+    "instruction": "print",
+    "s": "--More--"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [2, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [3, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [3, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "-------"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [4, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [4, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "......|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [5, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [5, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|.....|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [6, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [6, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|.....|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [7, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [7, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "@"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": ".."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [35],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "x"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [8, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [8, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "d"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "..."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [35],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "x"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [9, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [9, 71],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "-"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [33],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "+"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "-----"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [10, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [12, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [13, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [14, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [15, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [16, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [17, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [18, 22],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [7, 73],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "Hello stafford, welcome to NetHack!  You are a neutral human Priest."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [7, 73],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1, 69],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "--More--"
+  }
+]
