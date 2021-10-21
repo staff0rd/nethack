@@ -15,7 +15,8 @@ export const parseTopStatusLine = (line: string): TopStatus => {
     /(.+)St:(\d+(?:\/\d+)?) Dx:(\d+) Co:(\d+) In:(\d+) Wi:(\d+) Ch:(\d+) +(.+) S:(\d+)/
   );
   if (matches?.length !== 10) {
-    console.warn("matches", matches);
+    console.warn("matches", matches, matches?.length);
+    console.warn(line);
     throw new Error("Could not match topStatusLine");
   }
   return {

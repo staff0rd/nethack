@@ -1,21 +1,28 @@
 import { range, every, clone } from "lodash";
+import { parseBottomStatusLine } from "./parseBottomStatusLine";
+import { parseTopStatusLine } from "./parseTopStatusLine";
 import { Sequences } from "./terminalParser";
 
 export class GameParser {
   private x = 0;
   private y = 0;
   private screen = range(1, 26).map(() => range(0, 80).map((c) => " "));
-  private topStatusRaw = range(0, 80)
-    .map((p) => " ")
-    .join("");
-  private bottomStatusRaw = range(0, 80)
-    .map((p) => " ")
-    .join("");
+  private topStatusRaw = range(0, 80).map((p) => " ");
+  private bottomStatusRaw = range(0, 80).map((p) => " ");
+
   public get map() {
     return trimMap(this.screen)
       .map((p) => p.join("").trimEnd())
       .join("\n");
   }
+
+  public get topStatus() {
+    return parseTopStatusLine(this.topStatusRaw.join(""));
+  }
+  public get bottomStatus() {
+    return parseBottomStatusLine(this.bottomStatusRaw.join(""));
+  }
+
   parse(instructions: Sequences[]) {
     instructions.forEach((inst) => {
       if (inst.instruction === "csi") {
@@ -41,6 +48,20 @@ export class GameParser {
               this.screen[this.y][this.x] = ".";
             }
             this.x++;
+          }
+        } else if (this.y === 23) {
+          for (let i = 0; i < inst.s.length; i++) {
+            {
+              this.topStatusRaw[this.x] = inst.s[i];
+              this.x++;
+            }
+          }
+        } else if (this.y === 24) {
+          for (let i = 0; i < inst.s.length; i++) {
+            {
+              this.bottomStatusRaw[this.x] = inst.s[i];
+              this.x++;
+            }
           }
         }
       }

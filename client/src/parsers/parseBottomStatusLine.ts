@@ -18,6 +18,7 @@ export const parseBottomStatusLine = (line: string): BottomStatus => {
   );
   if (matches?.length !== 12) {
     console.warn("matches", matches, matches?.length);
+    console.warn(line);
     throw new Error("Could not match bottomStatusLine");
   }
   return {
