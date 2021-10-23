@@ -5,7 +5,6 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import DotIcon from "@mui/icons-material/FiberManualRecord";
 import ArrowDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useContext } from "react";
-import { useSelector } from "@xstate/react";
 import { GlobalStateContext } from "../../GlobalStateContext";
 import { EventTypes } from "../../machines/DgameLaunch/dgamelaunchMachine";
 
@@ -26,7 +25,7 @@ export const Movement = () => {
   const theme = useTheme();
   const service = useContext(GlobalStateContext).dgamelaunchService;
 
-  const send = (key: string) => {
+  const emit = (key: string) => {
     service.send({ type: EventTypes.SocketEmit, value: key });
   };
 
@@ -34,7 +33,7 @@ export const Movement = () => {
     <Box>
       <Box>
         <IconButton
-          onClick={() => send("y")}
+          onClick={() => emit("y")}
           sx={{
             borderStyle: "solid",
             borderWidth: 1,
@@ -47,7 +46,7 @@ export const Movement = () => {
           <ArrowLeftIcon />
         </IconButton>
         <IconButton
-          onClick={() => send("k")}
+          onClick={() => emit("k")}
           sx={{
             borderStyle: "solid",
             borderWidth: 1,
@@ -57,7 +56,7 @@ export const Movement = () => {
           <ArrowUpIcon />
         </IconButton>
         <IconButton
-          onClick={() => send("u")}
+          onClick={() => emit("u")}
           sx={{
             borderStyle: "solid",
             borderWidth: 1,
@@ -72,7 +71,7 @@ export const Movement = () => {
       </Box>
       <Box>
         <IconButton
-          onClick={() => send("h")}
+          onClick={() => emit("h")}
           sx={{
             borderStyle: "solid",
             borderWidth: 1,
@@ -82,7 +81,7 @@ export const Movement = () => {
           <ArrowLeftIcon />
         </IconButton>
         <IconButton
-          onClick={() => send(".")}
+          onClick={() => emit(".")}
           sx={{
             borderStyle: "solid",
             borderWidth: 1,
@@ -92,7 +91,7 @@ export const Movement = () => {
           <DotIcon />
         </IconButton>
         <IconButton
-          onClick={() => send("l")}
+          onClick={() => emit("l")}
           sx={{
             borderStyle: "solid",
             borderWidth: 1,
@@ -104,7 +103,7 @@ export const Movement = () => {
       </Box>
       <Box>
         <IconButton
-          onClick={() => send("b")}
+          onClick={() => emit("b")}
           sx={{
             borderStyle: "solid",
             borderWidth: 1,
@@ -117,7 +116,7 @@ export const Movement = () => {
           <ArrowDownIcon />
         </IconButton>
         <IconButton
-          onClick={() => send("j")}
+          onClick={() => emit("j")}
           sx={{
             borderStyle: "solid",
             borderWidth: 1,
@@ -127,7 +126,7 @@ export const Movement = () => {
           <ArrowDownIcon />
         </IconButton>
         <IconButton
-          onClick={() => send("n")}
+          onClick={() => emit("n")}
           sx={{
             borderStyle: "solid",
             borderWidth: 1,
