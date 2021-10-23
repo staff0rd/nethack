@@ -3,11 +3,11 @@ import { io } from "socket.io-client";
 import { loginMachine, States as loginStates } from "./loginMachine";
 import { registerMachine } from "./registerMachine";
 import { XTerm } from "xterm-for-react";
-import { terminalParser } from "../../parsers/terminalParser";
-import { GameParser } from "../../parsers/GameParser";
+import { terminalParser } from "src/parsers/terminalParser";
+import { GameParser } from "src/parsers/GameParser";
 import { range } from "lodash";
-import { TopStatus } from "parsers/parseTopStatusLine";
-import { BottomStatus } from "parsers/parseBottomStatusLine";
+import { TopStatus } from "src/parsers/parseTopStatusLine";
+import { BottomStatus } from "src/parsers/parseBottomStatusLine";
 
 export enum States {
   Init = "init",
