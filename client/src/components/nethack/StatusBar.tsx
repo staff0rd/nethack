@@ -74,7 +74,7 @@ export const StatusBar = () => {
           />
         </Grid>
         <Grid item>
-          <StatusItem title="Time" value={bottomStatus?.time} />
+          <StatusItem title="Time" value={bottomStatus?.time} dontFlash />
         </Grid>
         <Grid item>
           <StatusItem title="Status" value={bottomStatus?.status || "Normal"} />
