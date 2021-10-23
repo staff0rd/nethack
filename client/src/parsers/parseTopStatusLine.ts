@@ -13,16 +13,15 @@ export type TopStatus = {
 export const parseTopStatusLine = (
   line: string,
   matchedBefore: boolean = true
-): TopStatus => {
+): TopStatus | undefined => {
   const matches = line.match(
     /(.+)St:(\d+(?:\/\d+)?) Dx:(\d+) Co:(\d+) In:(\d+) Wi:(\d+) Ch:(\d+) +(.+) S:(\d+)/
   );
   if (matches?.length !== 10) {
     if (matchedBefore) {
       console.warn("matches", matches, matches?.length);
-      console.warn(line);
+      console.warn("Could not match top status", line);
     }
-    throw new Error("Could not match topStatusLine");
   } else {
     return {
       rank: matches[1].trim(),
