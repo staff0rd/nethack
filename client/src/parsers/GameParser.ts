@@ -62,7 +62,10 @@ export class GameParser {
               this.x++;
             }
           }
-          const topStatus = parseTopStatusLine(this.topStatusRaw.join(""));
+          const topStatus = parseTopStatusLine(
+            this.topStatusRaw.join(""),
+            !!this.topStatus
+          );
           if (topStatus) this.topStatus = topStatus;
         } else if (this.y === 24) {
           for (let i = 0; i < inst.s.length; i++) {
@@ -72,7 +75,8 @@ export class GameParser {
             }
           }
           const bottomStatus = parseBottomStatusLine(
-            this.bottomStatusRaw.join("")
+            this.bottomStatusRaw.join(""),
+            !!this.bottomStatus
           );
           if (bottomStatus) this.bottomStatus = bottomStatus;
         }

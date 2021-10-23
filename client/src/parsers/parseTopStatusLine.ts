@@ -10,24 +10,30 @@ export type TopStatus = {
   alignmentModifier: number;
 };
 
-export const parseTopStatusLine = (line: string): TopStatus => {
+export const parseTopStatusLine = (
+  line: string,
+  matchedBefore: boolean = true
+): TopStatus => {
   const matches = line.match(
     /(.+)St:(\d+(?:\/\d+)?) Dx:(\d+) Co:(\d+) In:(\d+) Wi:(\d+) Ch:(\d+) +(.+) S:(\d+)/
   );
   if (matches?.length !== 10) {
-    console.warn("matches", matches, matches?.length);
-    console.warn(line);
+    if (matchedBefore) {
+      console.warn("matches", matches, matches?.length);
+      console.warn(line);
+    }
     throw new Error("Could not match topStatusLine");
+  } else {
+    return {
+      rank: matches[1].trim(),
+      strength: matches[2],
+      dexterity: Number(matches[3]),
+      constitution: Number(matches[4]),
+      intelligence: Number(matches[5]),
+      wisdom: Number(matches[6]),
+      charisma: Number(matches[7]),
+      alignment: matches[8],
+      alignmentModifier: Number(matches[9]),
+    };
   }
-  return {
-    rank: matches[1].trim(),
-    strength: matches[2],
-    dexterity: Number(matches[3]),
-    constitution: Number(matches[4]),
-    intelligence: Number(matches[5]),
-    wisdom: Number(matches[6]),
-    charisma: Number(matches[7]),
-    alignment: matches[8],
-    alignmentModifier: Number(matches[9]),
-  };
 };

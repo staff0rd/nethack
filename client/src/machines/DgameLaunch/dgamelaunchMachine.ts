@@ -1,4 +1,4 @@
-import { createMachine, EventObject, send } from "xstate";
+import { assign, createMachine, EventObject, send } from "xstate";
 import { io } from "socket.io-client";
 import { loginMachine, States as loginStates } from "./loginMachine";
 import { registerMachine } from "./registerMachine";
@@ -6,6 +6,8 @@ import { XTerm } from "xterm-for-react";
 import { terminalParser } from "../../parsers/terminalParser";
 import { GameParser } from "../../parsers/GameParser";
 import { range } from "lodash";
+import { TopStatus } from "parsers/parseTopStatusLine";
+import { BottomStatus } from "parsers/parseBottomStatusLine";
 
 export enum States {
   Init = "init",
@@ -24,7 +26,18 @@ export enum EventTypes {
   SocketEmit = "socket-emit",
   ClearParser = "clear-parser",
   PrintParser = "print-parser",
+  UpdateTopStatus = "update-top-status",
+  UpdateBottomStatus = "update-bottom-status",
 }
+
+type UpdateBottomStatusEvent = {
+  type: EventTypes.UpdateBottomStatus;
+  status: BottomStatus;
+};
+type UpdateTopStatusEvent = {
+  type: EventTypes.UpdateTopStatus;
+  status: TopStatus;
+};
 
 export type Events =
   | { type: EventTypes.Connected }
@@ -33,11 +46,15 @@ export type Events =
   | { type: EventTypes.Automate }
   | { type: EventTypes.ClearParser }
   | { type: EventTypes.PrintParser }
+  | UpdateTopStatusEvent
+  | UpdateBottomStatusEvent
   | { type: EventTypes.SocketEmit; value: string }
   | { type: EventTypes.GoToLogin };
 
 export type Context = {
   xterm: React.RefObject<XTerm>;
+  bottomStatus?: BottomStatus;
+  topStatus?: TopStatus;
 };
 
 const sendSocket = <TContext, TEvent extends EventObject, T>(
@@ -74,7 +91,17 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       socket.on("data", function (data) {
         const instructions = terminalParser.parse(data);
         gameParser.parse(instructions);
-        console.log(gameParser.bottomStatus);
+        if (gameParser.topStatus) {
+          callback({
+            type: EventTypes.UpdateTopStatus,
+            status: gameParser.topStatus,
+          });
+        }
+        if (gameParser.bottomStatus)
+          callback({
+            type: EventTypes.UpdateBottomStatus,
+            status: gameParser.bottomStatus,
+          });
         context.xterm.current!.terminal.write(data);
       });
       socket.on("conn", (data) => {
@@ -82,7 +109,6 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       });
       document.addEventListener("keydown", (e) => {
         if (isNotFunctionKey(e)) {
-          console.log(e);
           context.xterm.current?.terminal.keyDown(e);
         }
       });
@@ -134,6 +160,18 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
           actions: sendSocket(
             (c, e: { type: EventTypes.SocketEmit; value: string }) => e.value
           ) as any,
+        },
+        [EventTypes.UpdateTopStatus]: {
+          actions: assign({
+            topStatus: (_: any, e) => {
+              return (e as UpdateTopStatusEvent).status;
+            },
+          }) as any,
+        },
+        [EventTypes.UpdateBottomStatus]: {
+          actions: assign({
+            bottomStatus: (_: any, e) => (e as UpdateBottomStatusEvent).status,
+          }) as any,
         },
       },
     },

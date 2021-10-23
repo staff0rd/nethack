@@ -13,14 +13,17 @@ export type BottomStatus = {
 };
 
 export const parseBottomStatusLine = (
-  line: string
+  line: string,
+  matchedBefore: boolean = true
 ): BottomStatus | undefined => {
   const matches = line.match(
     /Dlvl:(\d+) +\$:(\d+) +HP:(\d+)\((\d+)\) +Pw:(\d+)\((\d+)\) +AC:(\d+) +Xp:(\d+)\/(\d+) +T:(\d+) +([A-Za-z]+)?/
   );
   if (matches?.length !== 12) {
-    console.warn("matches", matches, matches?.length);
-    console.warn(line);
+    if (matchedBefore) {
+      console.warn("matches", matches, matches?.length);
+      console.warn(line);
+    }
   } else {
     return {
       dungeonLevel: Number(matches[1]),
