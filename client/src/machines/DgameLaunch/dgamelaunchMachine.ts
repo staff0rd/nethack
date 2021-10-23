@@ -5,6 +5,7 @@ import { registerMachine } from "./registerMachine";
 import { XTerm } from "xterm-for-react";
 import { terminalParser } from "../../parsers/terminalParser";
 import { GameParser } from "../../parsers/GameParser";
+import { range } from "lodash";
 
 export enum States {
   Init = "init",
@@ -80,7 +81,10 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
         console.log(data);
       });
       document.addEventListener("keydown", (e) => {
-        context.xterm.current?.terminal.keyDown(e);
+        if (isNotFunctionKey(e)) {
+          console.log(e);
+          context.xterm.current?.terminal.keyDown(e);
+        }
       });
       context.xterm.current!.terminal.onKey(function (ev) {
         socket.emit("data", ev.key);
@@ -171,3 +175,8 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
     },
   },
 });
+
+const isNotFunctionKey = (e: KeyboardEvent) => {
+  const functionKeys = range(1, 13).map((i) => `F${i}`);
+  return !functionKeys.includes(e.key);
+};
