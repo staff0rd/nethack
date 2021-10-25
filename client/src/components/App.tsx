@@ -1,40 +1,69 @@
-import { Box, Grid, ToggleButton, useTheme } from "@mui/material";
+import * as React from "react";
+import { Box, Button, Grid, Menu, MenuItem, useTheme } from "@mui/material";
 import { useInterpret } from "@xstate/react";
 import { DgameLaunch } from "./DgameLaunch";
 import { GlobalStateContext } from "../GlobalStateContext";
-import { dgamelaunchMachine } from "../machines/DgameLaunch/dgamelaunchMachine";
-import ComputerIcon from "@mui/icons-material/Computer";
+import {
+  dgamelaunchMachine,
+  EventTypes,
+} from "../machines/DgameLaunch/dgamelaunchMachine";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useEffect, useState, useRef } from "react";
 import { XTerm } from "xterm-for-react";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
 const App = () => {
   const theme = useTheme();
   const xtermRef = useRef<XTerm>(null);
   const [showTerminal, setShowTerminal] = useState(true);
   const dgamelaunchService = useInterpret(
-    dgamelaunchMachine.withContext({ xterm: xtermRef })
+    dgamelaunchMachine.withContext({ xterm: xtermRef, isPlaying: false })
   );
   useEffect(() => {
     setShowTerminal(true);
   }, []);
   return (
     <GlobalStateContext.Provider value={{ dgamelaunchService }}>
-      <ToggleButton
-        sx={{
-          borderRadius: 10,
-          borderStyle: "none",
-          position: "fixed",
-          margin: 1,
-          right: 0,
-        }}
-        value="showTerminal"
-        selected={showTerminal}
-        onChange={() => {
-          setShowTerminal(!showTerminal);
-        }}
-      >
-        <ComputerIcon />
-      </ToggleButton>
+      <PopupState variant="popover" popupId="demo-popup-menu">
+        {(popupState) => (
+          <React.Fragment>
+            <Button
+              sx={{
+                borderRadius: 10,
+                borderStyle: "none",
+                position: "fixed",
+                margin: 1,
+                right: 0,
+                "&.MuiButton-root": {
+                  minWidth: 0,
+                },
+              }}
+              {...bindTrigger(popupState)}
+            >
+              <MenuIcon />
+            </Button>
+            <Menu {...bindMenu(popupState)}>
+              <MenuItem
+                onClick={() => {
+                  popupState.close();
+                  setShowTerminal(!showTerminal);
+                }}
+              >
+                {`${showTerminal ? "Hide" : "Show"} Terminal`}
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  dgamelaunchService.send(EventTypes.PrintParser);
+                  popupState.close();
+                }}
+              >
+                Print Terminal
+              </MenuItem>
+              <MenuItem onClick={popupState.close}>Logout</MenuItem>
+            </Menu>
+          </React.Fragment>
+        )}
+      </PopupState>
 
       <Grid
         container

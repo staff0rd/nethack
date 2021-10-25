@@ -14,6 +14,7 @@ export const StatusBar = () => {
     services.dgamelaunchService,
     (state) => state.context.bottomStatus
   );
+  //if (!bottomStatus && !topStatus) return <></>;
   return (
     <>
       <Grid container spacing={1}>

@@ -15,6 +15,8 @@ export enum States {
   LoggedOut = "logged-out",
   Login = "login",
   RegisterNewUser = "register-new-user",
+  LoggedIn = "logged-in",
+  Nethack = "nethack",
 }
 
 export enum EventTypes {
@@ -28,6 +30,11 @@ export enum EventTypes {
   PrintParser = "print-parser",
   UpdateTopStatus = "update-top-status",
   UpdateBottomStatus = "update-bottom-status",
+  LoginDetected = "login-detected",
+  LoggedInDetected = "logged-in-detected",
+  LoggedOutDetected = "logged-out-detected",
+  Play = "play",
+  PlayDetected = "play-detected",
 }
 
 type UpdateBottomStatusEvent = {
@@ -49,12 +56,18 @@ export type Events =
   | UpdateTopStatusEvent
   | UpdateBottomStatusEvent
   | { type: EventTypes.SocketEmit; value: string }
-  | { type: EventTypes.GoToLogin };
+  | { type: EventTypes.GoToLogin }
+  | { type: EventTypes.LoggedInDetected }
+  | { type: EventTypes.Play }
+  | { type: EventTypes.PlayDetected }
+  | { type: EventTypes.LoggedOutDetected }
+  | { type: EventTypes.LoginDetected };
 
 export type Context = {
   xterm: React.RefObject<XTerm>;
   bottomStatus?: BottomStatus;
   topStatus?: TopStatus;
+  isPlaying: boolean;
 };
 
 const sendSocket = <TContext, TEvent extends EventObject, T>(
@@ -90,6 +103,22 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       // // Backend -> Browser
       socket.on("data", function (data) {
         const instructions = terminalParser.parse(data);
+
+        instructions.forEach((i) => {
+          if (i.instruction === "print") {
+            if (i.s === "Please enter your username. (blank entry aborts)") {
+              callback({ type: EventTypes.LoginDetected });
+            } else if (i.s.startsWith("Logged in as:")) {
+              callback({ type: EventTypes.LoggedInDetected });
+            } else if (i.s.startsWith("Not logged in.")) {
+              callback({ type: EventTypes.LoggedOutDetected });
+            } else if (i.s.startsWith("NetHack, Copyright 1985-")) {
+              callback({ type: EventTypes.PlayDetected });
+            }
+          }
+        });
+
+        // TODO: only do this inside nethack
         gameParser.parse(instructions);
         if (gameParser.topStatus) {
           callback({
@@ -108,8 +137,11 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
         console.log(data);
       });
       document.addEventListener("keydown", (e) => {
-        if (isNotFunctionKey(e)) {
-          context.xterm.current?.terminal.keyDown(e);
+        console.log(context.isPlaying);
+        if (context.isPlaying) {
+          if (isNotFunctionKey(e)) {
+            context.xterm.current?.terminal.keyDown(e);
+          }
         }
       });
       context.xterm.current!.terminal.onKey(function (ev) {
@@ -121,8 +153,10 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       });
 
       onEvent((e) => {
-        console.log("sending: ", e.payload);
-        socket.emit(e.type, e.payload);
+        if (e.type === "data") {
+          console.log("sending: ", e.payload);
+          socket.emit(e.type, e.payload);
+        }
       });
     },
   },
@@ -137,25 +171,26 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
         [EventTypes.Connected]: States.LoggedOut,
       },
     },
-    [States.LoggedOut]: {
+    [States.LoggedIn]: {
       on: {
-        [EventTypes.Disconnected]: States.Disconnected,
-        [EventTypes.GoToLogin]: States.Login,
-        [EventTypes.GoToRegisterNewUser]: States.RegisterNewUser,
-        [EventTypes.ClearParser]: {
-          actions: terminalParser.clear as any,
+        [EventTypes.Play]: {
+          actions: sendSocket("p") as any,
         },
-        [EventTypes.PrintParser]: {
-          actions: terminalParser.print as any,
-        },
-        [EventTypes.Automate]: {
-          actions: [
-            sendSocket("l") as any,
-            sendSocket("stafford\n"),
-            sendSocket("stafford\n"),
-            sendSocket("p"),
-          ],
-        },
+        [EventTypes.PlayDetected]: States.Nethack,
+      },
+    },
+    [States.Nethack]: {
+      entry: [
+        assign<Context>({ isPlaying: true }),
+        (c) => console.log("isPlaying", c.isPlaying),
+      ],
+      exit: [
+        assign<Context>({ isPlaying: false }),
+        (c) => console.log("isPlaying", c.isPlaying),
+      ],
+      on: {
+        [EventTypes.LoggedInDetected]: States.LoggedIn,
+        [EventTypes.LoggedOutDetected]: States.LoggedOut,
         [EventTypes.SocketEmit]: {
           actions: sendSocket(
             (c, e: { type: EventTypes.SocketEmit; value: string }) => e.value
@@ -175,6 +210,32 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
         },
       },
     },
+    [States.LoggedOut]: {
+      on: {
+        [EventTypes.LoggedInDetected]: States.LoggedIn,
+        [EventTypes.Disconnected]: States.Disconnected,
+        [EventTypes.GoToLogin]: {
+          actions: sendSocket("l") as any,
+        },
+        [EventTypes.LoginDetected]: States.Login,
+
+        [EventTypes.GoToRegisterNewUser]: States.RegisterNewUser,
+        [EventTypes.ClearParser]: {
+          actions: terminalParser.clear as any,
+        },
+        [EventTypes.PrintParser]: {
+          actions: terminalParser.print as any,
+        },
+        [EventTypes.Automate]: {
+          actions: [
+            sendSocket("l") as any,
+            sendSocket("stafford\n"),
+            sendSocket("stafford\n"),
+            sendSocket("p"),
+          ],
+        },
+      },
+    },
     [States.RegisterNewUser]: {
       entry: sendSocket("r") as any,
       invoke: {
@@ -190,7 +251,6 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       },
     },
     [States.Login]: {
-      entry: sendSocket("l") as any,
       invoke: {
         src: loginMachine,
         id: "login",

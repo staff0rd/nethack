@@ -14,6 +14,7 @@
     "@mui/material": "^5.0.3",
     "@xstate/react": "^1.6.1",
     "lodash": "^4.17.21",
+    "material-ui-popup-state": "^2.0.0",
     "node-ansiparser": "^2.2.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",

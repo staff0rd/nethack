@@ -36,7 +36,6 @@ export const loginMachine = createMachine<Context, Events>({
         [EventTypes.ClickLogin]: {
           target: States.LoggedIn,
           actions: [
-            () => console.log("bailing with login"),
             assign({
               password: (c, e) => e.password,
               username: (c, e) => e.username,
@@ -46,7 +45,6 @@ export const loginMachine = createMachine<Context, Events>({
       },
     },
     [States.LoggedIn]: {
-      entry: () => console.log("enter loggedin"),
       type: "final",
       data: {
         result: States.LoggedIn,
