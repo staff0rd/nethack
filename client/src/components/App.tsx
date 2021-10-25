@@ -1,12 +1,4 @@
-import {
-  AppBar,
-  Box,
-  Grid,
-  ToggleButton,
-  Toolbar,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Grid, ToggleButton, useTheme } from "@mui/material";
 import { useInterpret } from "@xstate/react";
 import { DgameLaunch } from "./DgameLaunch";
 import { GlobalStateContext } from "../GlobalStateContext";
@@ -27,25 +19,22 @@ const App = () => {
   }, []);
   return (
     <GlobalStateContext.Provider value={{ dgamelaunchService }}>
-      <AppBar position="fixed">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1 }}
-          ></Typography>
-          <ToggleButton
-            sx={{ borderRadius: 10, borderStyle: "none" }}
-            value="showTerminal"
-            selected={showTerminal}
-            onChange={() => {
-              setShowTerminal(!showTerminal);
-            }}
-          >
-            <ComputerIcon />
-          </ToggleButton>
-        </Toolbar>
-      </AppBar>
+      <ToggleButton
+        sx={{
+          borderRadius: 10,
+          borderStyle: "none",
+          position: "fixed",
+          margin: 1,
+          right: 0,
+        }}
+        value="showTerminal"
+        selected={showTerminal}
+        onChange={() => {
+          setShowTerminal(!showTerminal);
+        }}
+      >
+        <ComputerIcon />
+      </ToggleButton>
 
       <Grid
         container
