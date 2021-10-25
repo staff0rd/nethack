@@ -48,13 +48,13 @@ export const terminal = {
   // http://www.noah.org/python/pexpect/ANSI-X3.64.htm
   // https://en.wikipedia.org/wiki/ANSI_escape_code#CSIsection
   inst_p: function (s: string) {
-    instructions.push({ instruction: "print", s });
+    add({ instruction: "print", s });
   },
   inst_o: function (s: string) {
-    instructions.push({ instruction: "osc", s });
+    add({ instruction: "osc", s });
   },
   inst_x: function (flag: string) {
-    instructions.push({ instruction: "execute", flag: flag.charCodeAt(0) });
+    add({ instruction: "execute", flag: flag.charCodeAt(0) });
   },
   inst_c: function (collected: string, params: any[], flag: string) {
     const instruction: CsiSequence = {
@@ -63,21 +63,26 @@ export const terminal = {
       params,
       flag,
     };
-    if (ansi.isClear(instruction)) instructions.length = 0;
-    instructions.push(instruction);
+    if (ansi.isClear(instruction)) sinceLastClear.length = 0;
+    add(instruction);
   },
   inst_e: function (collected: string, flag: string) {
-    instructions.push({ instruction: "esc", collected, flag });
+    add({ instruction: "esc", collected, flag });
   },
   inst_H: function (collected: string, params: string, flag: string) {
-    instructions.push({ instruction: "dcs-Hook", collected, params, flag });
+    add({ instruction: "dcs-Hook", collected, params, flag });
   },
   inst_P: function (dcs: string) {
-    instructions.push({ instruction: "dcs-Put", dcs });
+    add({ instruction: "dcs-Put", dcs });
   },
   inst_U: function () {
-    instructions.push({ instruction: "dcs-Unhook" });
+    add({ instruction: "dcs-Unhook" });
   },
+};
+
+const add = (instruction: Sequences) => {
+  instructions.push(instruction);
+  sinceLastClear.push(instruction);
 };
 
 const instructions: Sequences[] = [];
