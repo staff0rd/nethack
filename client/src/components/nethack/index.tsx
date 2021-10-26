@@ -1,7 +1,7 @@
 import { Button, Grid } from "@mui/material";
 import { useContext } from "react";
 import { GlobalStateContext } from "../../GlobalStateContext";
-import { EventTypes } from "../../machines/DgameLaunch/dgamelaunchMachine";
+import { EventTypes } from "../../machines/DgameLaunch/EventTypes";
 import { Movement } from "./Movement";
 import { StatusBar } from "./StatusBar";
 

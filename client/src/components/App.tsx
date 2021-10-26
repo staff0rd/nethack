@@ -3,10 +3,8 @@ import { Box, Button, Grid, Menu, MenuItem, useTheme } from "@mui/material";
 import { useInterpret } from "@xstate/react";
 import { DgameLaunch } from "./DgameLaunch";
 import { GlobalStateContext } from "../GlobalStateContext";
-import {
-  dgamelaunchMachine,
-  EventTypes,
-} from "../machines/DgameLaunch/dgamelaunchMachine";
+import { dgamelaunchMachine } from "../machines/DgameLaunch";
+import { EventTypes } from "../machines/DgameLaunch/EventTypes";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useEffect, useState, useRef } from "react";
 import { XTerm } from "xterm-for-react";

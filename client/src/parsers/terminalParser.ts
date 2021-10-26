@@ -1,7 +1,7 @@
 import AnsiParser from "node-ansiparser";
 import { ansi } from "./ansi";
 
-type PrintSequence = {
+export type PrintSequence = {
   s: string;
   instruction: "print";
 };

@@ -6,7 +6,7 @@ import DotIcon from "@mui/icons-material/FiberManualRecord";
 import ArrowDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useContext } from "react";
 import { GlobalStateContext } from "../../GlobalStateContext";
-import { EventTypes } from "../../machines/DgameLaunch/dgamelaunchMachine";
+import { EventTypes } from "../../machines/DgameLaunch/EventTypes";
 
 /*
  *  y k u   7 8 9   Move commands:

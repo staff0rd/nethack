@@ -3,15 +3,20 @@ import { useSelector } from "@xstate/react";
 import { GlobalStateContext } from "src/GlobalStateContext";
 import { useContext } from "react";
 import { StatusItem } from "./StatusItem";
+import { ActorRefFrom } from "xstate";
+import { nethackMachine } from "src/machines/nethackMachine";
 
 export const StatusBar = () => {
   const services = useContext(GlobalStateContext);
+  const nethackService = useSelector(services.dgamelaunchService, (state) => {
+    return state.children.nethack as ActorRefFrom<typeof nethackMachine>;
+  });
   const topStatus = useSelector(
-    services.dgamelaunchService,
+    nethackService,
     (state) => state.context.topStatus
   );
   const bottomStatus = useSelector(
-    services.dgamelaunchService,
+    nethackService,
     (state) => state.context.bottomStatus
   );
   //if (!bottomStatus && !topStatus) return <></>;

@@ -1,13 +1,16 @@
-import { assign, createMachine, EventObject, send } from "xstate";
+import { assign, createMachine, EventObject, forwardTo, send } from "xstate";
 import { io } from "socket.io-client";
 import { loginMachine, States as loginStates } from "./loginMachine";
 import { registerMachine } from "./registerMachine";
 import { XTerm } from "xterm-for-react";
-import { terminalParser } from "src/parsers/terminalParser";
-import { GameParser } from "src/parsers/GameParser";
+import {
+  PrintSequence,
+  Sequences,
+  terminalParser,
+} from "src/parsers/terminalParser";
 import { range } from "lodash";
-import { TopStatus } from "src/parsers/parseTopStatusLine";
-import { BottomStatus } from "src/parsers/parseBottomStatusLine";
+import { nethackMachine } from "../nethackMachine";
+import { EventTypes } from "./EventTypes";
 
 export enum States {
   Init = "init",
@@ -19,32 +22,12 @@ export enum States {
   Nethack = "nethack",
 }
 
-export enum EventTypes {
-  Connected = "connected",
-  Disconnected = "disconnected",
-  GoToLogin = "login",
-  GoToRegisterNewUser = "register-new-user",
-  Automate = "send-blank",
-  SocketEmit = "socket-emit",
-  ClearParser = "clear-parser",
-  PrintParser = "print-parser",
-  UpdateTopStatus = "update-top-status",
-  UpdateBottomStatus = "update-bottom-status",
-  LoginDetected = "login-detected",
-  LoggedInDetected = "logged-in-detected",
-  LoggedOutDetected = "logged-out-detected",
-  Play = "play",
-  PlayDetected = "play-detected",
-}
+export type ReceivedInstructionsEvent = {
+  type: EventTypes.ReceivedInstructions;
+  instructions: Sequences[];
+};
 
-type UpdateBottomStatusEvent = {
-  type: EventTypes.UpdateBottomStatus;
-  status: BottomStatus;
-};
-type UpdateTopStatusEvent = {
-  type: EventTypes.UpdateTopStatus;
-  status: TopStatus;
-};
+export type KeydownEvent = { type: EventTypes.KeyDown; e: KeyboardEvent };
 
 export type Events =
   | { type: EventTypes.Connected }
@@ -53,9 +36,10 @@ export type Events =
   | { type: EventTypes.Automate }
   | { type: EventTypes.ClearParser }
   | { type: EventTypes.PrintParser }
-  | UpdateTopStatusEvent
-  | UpdateBottomStatusEvent
+  | KeydownEvent
   | { type: EventTypes.SocketEmit; value: string }
+  | { type: EventTypes.ReceivedData; data: string }
+  | ReceivedInstructionsEvent
   | { type: EventTypes.GoToLogin }
   | { type: EventTypes.LoggedInDetected }
   | { type: EventTypes.Play }
@@ -65,8 +49,6 @@ export type Events =
 
 export type Context = {
   xterm: React.RefObject<XTerm>;
-  bottomStatus?: BottomStatus;
-  topStatus?: TopStatus;
   isPlaying: boolean;
 };
 
@@ -84,6 +66,47 @@ const sendSocket = <TContext, TEvent extends EventObject, T>(
 export const dgamelaunchMachine = createMachine<Context, Events>({
   initial: States.Init,
   id: "dgamelaunch",
+  on: {
+    [EventTypes.KeyDown]: {
+      actions: forwardTo("socket"),
+    },
+    [EventTypes.ReceivedInstructions]: {
+      cond: (c) => c.isPlaying,
+      actions: [
+        send(
+          (_, e) => ({
+            type: EventTypes.ReceivedInstructions,
+            instructions: e.instructions,
+          }),
+          { to: "nethack" }
+        ),
+      ],
+    },
+    [EventTypes.ReceivedData]: {
+      actions: [
+        (c, e) => c.xterm.current!.terminal.write(e.data),
+        send((c, e) => {
+          const instructions = terminalParser.parse(e.data);
+          for (let i = 0; i < instructions.length; i++) {
+            const { instruction } = instructions[i];
+            if (instruction === "print") {
+              const s = (instructions[i] as PrintSequence).s;
+              if (s === "Please enter your username. (blank entry aborts)") {
+                return { type: EventTypes.LoginDetected };
+              } else if (s.startsWith("Logged in as:")) {
+                return { type: EventTypes.LoggedInDetected };
+              } else if (s.startsWith("Not logged in.")) {
+                return { type: EventTypes.LoggedOutDetected };
+              } else if (s.startsWith("NetHack, Copyright 1985-")) {
+                return { type: EventTypes.PlayDetected };
+              }
+            }
+          }
+          return { type: EventTypes.ReceivedInstructions, instructions };
+        }),
+      ],
+    },
+  },
   invoke: {
     id: "socket",
     src: (context) => (callback, onEvent) => {
@@ -94,68 +117,36 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
         rejectUnauthorized: false,
         transports: ["websocket"],
       });
-      const gameParser = new GameParser();
-      console.log("connecting to server");
       socket.on("connect", () => {
         callback(EventTypes.Connected);
       });
       socket.on("connect_error", (err) => console.error("socket error", err));
-      // // Backend -> Browser
+
+      // Backend -> Browser
       socket.on("data", function (data) {
-        const instructions = terminalParser.parse(data);
-
-        instructions.forEach((i) => {
-          if (i.instruction === "print") {
-            if (i.s === "Please enter your username. (blank entry aborts)") {
-              callback({ type: EventTypes.LoginDetected });
-            } else if (i.s.startsWith("Logged in as:")) {
-              callback({ type: EventTypes.LoggedInDetected });
-            } else if (i.s.startsWith("Not logged in.")) {
-              callback({ type: EventTypes.LoggedOutDetected });
-            } else if (i.s.startsWith("NetHack, Copyright 1985-")) {
-              callback({ type: EventTypes.PlayDetected });
-            }
-          }
-        });
-
-        // TODO: only do this inside nethack
-        gameParser.parse(instructions);
-        if (gameParser.topStatus) {
-          callback({
-            type: EventTypes.UpdateTopStatus,
-            status: gameParser.topStatus,
-          });
-        }
-        if (gameParser.bottomStatus)
-          callback({
-            type: EventTypes.UpdateBottomStatus,
-            status: gameParser.bottomStatus,
-          });
-        context.xterm.current!.terminal.write(data);
+        callback({ type: EventTypes.ReceivedData, data });
       });
       socket.on("conn", (data) => {
         console.log(data);
       });
-      document.addEventListener("keydown", (e) => {
-        console.log(context.isPlaying);
-        if (context.isPlaying) {
-          if (isNotFunctionKey(e)) {
-            context.xterm.current?.terminal.keyDown(e);
-          }
-        }
-      });
-      context.xterm.current!.terminal.onKey(function (ev) {
-        socket.emit("data", ev.key);
-      });
 
+      context.xterm.current!.terminal.onKey((ev) =>
+        socket.emit("data", ev.key)
+      );
       socket.on("disconnect", function () {
         send(EventTypes.Disconnected);
       });
 
       onEvent((e) => {
-        if (e.type === "data") {
-          console.log("sending: ", e.payload);
-          socket.emit(e.type, e.payload);
+        switch (e.type) {
+          case "data": {
+            socket.emit(e.type, e.payload);
+            break;
+          }
+          case EventTypes.KeyDown: {
+            context.xterm.current?.terminal.keyDown(e.e);
+            break;
+          }
         }
       });
     },
@@ -180,14 +171,12 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       },
     },
     [States.Nethack]: {
-      entry: [
-        assign<Context>({ isPlaying: true }),
-        (c) => console.log("isPlaying", c.isPlaying),
-      ],
-      exit: [
-        assign<Context>({ isPlaying: false }),
-        (c) => console.log("isPlaying", c.isPlaying),
-      ],
+      entry: assign<Context>({ isPlaying: true }),
+      exit: assign<Context>({ isPlaying: false }),
+      invoke: {
+        id: "nethack",
+        src: nethackMachine,
+      },
       on: {
         [EventTypes.LoggedInDetected]: States.LoggedIn,
         [EventTypes.LoggedOutDetected]: States.LoggedOut,
@@ -195,18 +184,6 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
           actions: sendSocket(
             (c, e: { type: EventTypes.SocketEmit; value: string }) => e.value
           ) as any,
-        },
-        [EventTypes.UpdateTopStatus]: {
-          actions: assign({
-            topStatus: (_: any, e) => {
-              return (e as UpdateTopStatusEvent).status;
-            },
-          }) as any,
-        },
-        [EventTypes.UpdateBottomStatus]: {
-          actions: assign({
-            bottomStatus: (_: any, e) => (e as UpdateBottomStatusEvent).status,
-          }) as any,
         },
       },
     },

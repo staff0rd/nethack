@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { GlobalStateContext } from "../../GlobalStateContext";
 import { LoggedOut } from "./LoggedOut";
 import { LoggedIn } from "./LoggedIn";
-import { States } from "../../machines/DgameLaunch/dgamelaunchMachine";
+import { States } from "../../machines/DgameLaunch";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { Nethack } from "../nethack";
