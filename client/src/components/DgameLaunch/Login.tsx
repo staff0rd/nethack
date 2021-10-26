@@ -58,6 +58,7 @@ export const Login = () => {
           autoFocus
           label="Username"
           variant="standard"
+          autoComplete="username"
           inputProps={{
             maxLength: 10,
           }}
@@ -69,6 +70,7 @@ export const Login = () => {
           inputProps={{
             maxLength: 10,
           }}
+          autoComplete="current-password"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
