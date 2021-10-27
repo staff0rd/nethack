@@ -7,7 +7,7 @@ export type TopStatus = {
   wisdom: number;
   charisma: number;
   alignment: string;
-  alignmentModifier: number;
+  score: number;
 };
 
 export const parseTopStatusLine = (
@@ -32,7 +32,7 @@ export const parseTopStatusLine = (
       wisdom: Number(matches[6]),
       charisma: Number(matches[7]),
       alignment: matches[8],
-      alignmentModifier: Number(matches[9]),
+      score: Number(matches[9]),
     };
   }
 };

@@ -42,10 +42,10 @@ export const StatusBar = () => {
           <StatusItem title="Charisma" value={topStatus?.charisma} />
         </Grid>
         <Grid item>
-          <StatusItem
-            title="Alignment"
-            value={`${topStatus?.alignment} (${topStatus?.alignmentModifier})`}
-          />
+          <StatusItem title="Alignment" value={topStatus?.alignment} />
+        </Grid>
+        <Grid item>
+          <StatusItem title="Score" value={topStatus?.score} />
         </Grid>
       </Grid>
       <Grid container spacing={1}>
