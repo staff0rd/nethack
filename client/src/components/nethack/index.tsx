@@ -1,17 +1,18 @@
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useContext } from "react";
 import { GlobalStateContext } from "../../GlobalStateContext";
-import { EventTypes } from "../../machines/DgameLaunch/EventTypes";
 import { Movement } from "./Movement";
 import { StatusBar } from "./StatusBar";
+import { Map } from "./Map";
 
 export const Nethack = () => {
-  const services = useContext(GlobalStateContext);
-
   return (
     <Grid container spacing={2}>
       <Grid item>
-        <Grid item sx={{ padding: 2 }}>
+        <Map />
+      </Grid>
+      <Grid item>
+        <Grid item>
           <Movement />
         </Grid>
       </Grid>

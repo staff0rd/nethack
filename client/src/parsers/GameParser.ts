@@ -7,16 +7,18 @@ import { Sequences } from "./terminalParser";
 export class GameParser {
   private x = 0;
   private y = 0;
-  private screen = range(1, 26).map(() => range(0, 80).map((c) => " "));
+  private _screen = range(1, 26).map(() => range(0, 80).map((c) => " "));
   private topStatusRaw!: string[];
   private bottomStatusRaw!: string[];
   topStatus: TopStatus | undefined;
   bottomStatus: BottomStatus | undefined;
 
   public get map() {
-    return trimMap(this.screen)
-      .map((p) => p.join("").trimEnd())
-      .join("\n");
+    return this._screen.map((p) => p.join("")).join("\n");
+  }
+
+  public get screen() {
+    return this._screen;
   }
 
   constructor() {
@@ -47,12 +49,7 @@ export class GameParser {
         // exclude top 1 and bottom 2 lines
         if (this.y > 1 && this.y < 23) {
           for (let i = 0; i < inst.s.length; i++) {
-            const value = inst.s[i];
-            if (!value.match(/[a-zA-Z@*$]/)) {
-              this.screen[this.y][this.x] = value;
-            } else {
-              this.screen[this.y][this.x] = ".";
-            }
+            this._screen[this.y][this.x] = inst.s[i];
             this.x++;
           }
         } else if (this.y === 23) {
@@ -82,6 +79,7 @@ export class GameParser {
         }
       }
     });
+    console.log("parse complete");
   }
 }
 

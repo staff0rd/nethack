@@ -1,7 +1,7 @@
 import { GameParser } from "src/parsers/GameParser";
 import { BottomStatus } from "src/parsers/parseBottomStatusLine";
 import { TopStatus } from "src/parsers/parseTopStatusLine";
-import { assign, createMachine, forwardTo, send, sendParent } from "xstate";
+import { assign, createMachine, forwardTo, sendParent } from "xstate";
 import { ReceivedInstructionsEvent, KeydownEvent } from "./DgameLaunch";
 import { EventTypes as DgameEventTypes } from "./DgameLaunch/EventTypes";
 
@@ -21,17 +21,22 @@ type UpdateTopStatusEvent = {
 export enum EventTypes {
   UpdateTopStatus = "update-top-status",
   UpdateBottomStatus = "update-bottom-status",
+  UpdateMap = "update-map",
 }
+
+type UpdateMapEvent = { type: EventTypes.UpdateMap; map: string };
 
 export type Events =
   | ReceivedInstructionsEvent
   | UpdateTopStatusEvent
   | KeydownEvent
-  | UpdateBottomStatusEvent;
+  | UpdateBottomStatusEvent
+  | UpdateMapEvent;
 
 export type Context = {
   bottomStatus?: BottomStatus;
   topStatus?: TopStatus;
+  map?: string;
 };
 
 export const nethackMachine = createMachine<Context, Events>({
@@ -43,8 +48,10 @@ export const nethackMachine = createMachine<Context, Events>({
     src: () => (callback, onEvent) => {
       const gameParser = new GameParser();
       onEvent((e) => {
+        console.log("new event:", e.type);
         if (e.type === DgameEventTypes.ReceivedInstructions) {
           gameParser.parse(e.instructions);
+          callback({ type: EventTypes.UpdateMap, map: gameParser.map });
           if (gameParser.topStatus) {
             callback({
               type: EventTypes.UpdateTopStatus,
@@ -65,6 +72,9 @@ export const nethackMachine = createMachine<Context, Events>({
     },
   },
   on: {
+    [EventTypes.UpdateMap]: {
+      actions: assign<Context, UpdateMapEvent>({ map: (_, e) => e.map }),
+    },
     [DgameEventTypes.ReceivedInstructions]: {
       actions: forwardTo("game-parser"),
     },
@@ -72,15 +82,13 @@ export const nethackMachine = createMachine<Context, Events>({
       actions: sendParent((c, e) => e),
     },
     [EventTypes.UpdateTopStatus]: {
-      actions: assign<Context>({
-        topStatus: (_, e) => {
-          return (e as UpdateTopStatusEvent).status;
-        },
+      actions: assign<Context, UpdateTopStatusEvent>({
+        topStatus: (_, e) => e.status,
       }) as any,
     },
     [EventTypes.UpdateBottomStatus]: {
-      actions: assign<Context>({
-        bottomStatus: (_, e) => (e as UpdateBottomStatusEvent).status,
+      actions: assign<Context, UpdateBottomStatusEvent>({
+        bottomStatus: (_, e) => e.status,
       }) as any,
     },
   },
