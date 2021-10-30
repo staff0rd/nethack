@@ -25,7 +25,6 @@ export const Pixi = ({
       });
       setApp(pixi);
       pixiElement.current.appendChild(pixi.view);
-      console.log("pixi is updated");
       onAppChange && onAppChange(pixi);
     }
   }, [backgroundColor, pixiElement]);

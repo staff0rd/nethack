@@ -53,6 +53,13 @@ export type Context = {
   isPlaying: boolean;
 };
 
+const socket = io("http://localhost:3001", {
+  secure: true,
+  reconnection: true,
+  rejectUnauthorized: false,
+  transports: ["websocket"],
+});
+
 const sendSocket = <TContext, TEvent extends EventObject, T>(
   payload:
     | string
@@ -114,14 +121,9 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
   },
   invoke: {
     id: "socket",
+    // see https://github.com/statelyai/xstate/issues/549#issuecomment-512004633
     src: (context) => (callback, onEvent) => {
-      // see https://github.com/statelyai/xstate/issues/549#issuecomment-512004633
-      const socket = io("http://localhost:3001", {
-        secure: true,
-        reconnection: true,
-        rejectUnauthorized: false,
-        transports: ["websocket"],
-      });
+      socket.removeAllListeners();
       socket.on("connect", () => {
         callback(EventTypes.Connected);
       });
