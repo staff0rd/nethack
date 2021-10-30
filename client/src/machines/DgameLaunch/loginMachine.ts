@@ -8,15 +8,11 @@ export enum States {
 }
 
 export enum EventTypes {
-  SetUsername = "SetUsername",
-  SetPassword = "SetPassword",
   ClickCancel = "ClickCancel",
   ClickLogin = "ClickLogin",
 }
 
 export type Events =
-  | { type: EventTypes.SetUsername; username: string }
-  | { type: EventTypes.SetPassword; password: string }
   | { type: EventTypes.ClickCancel }
   | { type: EventTypes.ClickLogin; username: string; password: string };
 
