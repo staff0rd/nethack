@@ -21,8 +21,8 @@ describe("loginMachine", () => {
     const loginService = interpret(loginMachine).start();
     loginService.send({
       type: EventTypes.ClickLogin,
-      password: "password",
       username: "username",
+      password: "password",
     });
     expect(loginService.state.context.username).toBe("username");
   });

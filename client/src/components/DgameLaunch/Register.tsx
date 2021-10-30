@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { GlobalStateContext } from "../../GlobalStateContext";
 import { useSelector } from "@xstate/react";
@@ -10,6 +10,9 @@ import {
 
 export const Register = () => {
   const theme = useTheme();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const globalServices = useContext(GlobalStateContext);
   const registerService = useSelector(
     globalServices.dgamelaunchService,
@@ -18,6 +21,16 @@ export const Register = () => {
 
   return (
     <Box
+      onSubmit={(e) => {
+        registerService.send({
+          type: EventTypes.ClickRegister,
+          email,
+          username,
+          password,
+        });
+        e.preventDefault();
+        return false;
+      }}
       component="form"
       sx={{
         borderStyle: "solid",
@@ -45,6 +58,9 @@ export const Register = () => {
         }}
       >
         <TextField
+          autoFocus
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           label="Username"
           variant="standard"
           inputProps={{
@@ -52,6 +68,8 @@ export const Register = () => {
           }}
         />
         <TextField
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           label="Password"
           type="password"
           variant="standard"
@@ -60,14 +78,8 @@ export const Register = () => {
           }}
         />
         <TextField
-          label="Password (again)"
-          type="password"
-          variant="standard"
-          inputProps={{
-            maxLength: 10,
-          }}
-        />
-        <TextField
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           label="Email"
           variant="standard"
           inputProps={{
@@ -82,7 +94,7 @@ export const Register = () => {
           "& > :not(style)": { m: 1 },
         }}
       >
-        <Button>Register</Button>
+        <Button type="submit">Register</Button>
         <Button
           onClick={() => registerService.send({ type: EventTypes.ClickCancel })}
         >

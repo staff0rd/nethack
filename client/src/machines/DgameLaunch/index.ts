@@ -1,7 +1,7 @@
 import { assign, createMachine, EventObject, forwardTo, send } from "xstate";
 import { io } from "socket.io-client";
 import { loginMachine, States as loginStates } from "./loginMachine";
-import { registerMachine } from "./registerMachine";
+import { registerMachine, States as registerStates } from "./registerMachine";
 import { XTerm } from "xterm-for-react";
 import {
   PrintSequence,
@@ -45,6 +45,7 @@ export type Events =
   | { type: EventTypes.Play }
   | { type: EventTypes.PlayDetected }
   | { type: EventTypes.LoggedOutDetected }
+  | { type: EventTypes.RegisterDetected }
   | { type: EventTypes.LoginDetected };
 
 export type Context = {
@@ -82,6 +83,8 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
         ),
       ],
     },
+    [EventTypes.LoggedInDetected]: States.LoggedIn,
+    [EventTypes.LoggedOutDetected]: States.LoggedOut,
     [EventTypes.ReceivedData]: {
       actions: [
         (c, e) => c.xterm.current!.terminal.write(e.data),
@@ -97,6 +100,8 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
                 return { type: EventTypes.LoggedInDetected };
               } else if (s.startsWith("Not logged in.")) {
                 return { type: EventTypes.LoggedOutDetected };
+              } else if (s.startsWith("Welcome new user.")) {
+                return { type: EventTypes.RegisterDetected };
               } else if (s.startsWith("NetHack, Copyright 1985-")) {
                 return { type: EventTypes.PlayDetected };
               }
@@ -178,7 +183,6 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
         src: nethackMachine,
       },
       on: {
-        [EventTypes.LoggedInDetected]: States.LoggedIn,
         [EventTypes.LoggedOutDetected]: States.LoggedOut,
         [EventTypes.SocketEmit]: {
           actions: sendSocket(
@@ -189,14 +193,16 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
     },
     [States.LoggedOut]: {
       on: {
-        [EventTypes.LoggedInDetected]: States.LoggedIn,
         [EventTypes.Disconnected]: States.Disconnected,
         [EventTypes.GoToLogin]: {
           actions: sendSocket("l") as any,
         },
         [EventTypes.LoginDetected]: States.Login,
 
-        [EventTypes.GoToRegisterNewUser]: States.RegisterNewUser,
+        [EventTypes.GoToRegisterNewUser]: {
+          actions: sendSocket("r") as any,
+        },
+        [EventTypes.RegisterDetected]: States.RegisterNewUser,
         [EventTypes.ClearParser]: {
           actions: terminalParser.clear as any,
         },
@@ -214,15 +220,22 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       },
     },
     [States.RegisterNewUser]: {
-      entry: sendSocket("r") as any,
       invoke: {
         src: () => registerMachine,
         id: "register",
         onDone: [
           {
-            cond: (c, e) => e.data.result === loginStates.Cancel,
+            cond: (c, e) => e.data.result === registerStates.Cancel,
             actions: sendSocket("\n") as any,
-            target: States.LoggedOut,
+          },
+          {
+            cond: (c, e) => e.data.result === registerStates.Registered,
+            actions: [
+              sendSocket((c, e) => `${e.data.username}\n`),
+              sendSocket((c, e) => `${e.data.password}\n`),
+              sendSocket((c, e) => `${e.data.password}\n`),
+              sendSocket((c, e) => `${e.data.email}\n`),
+            ],
           },
         ],
       },
@@ -235,15 +248,13 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
           {
             cond: (c, e) => e.data.result === loginStates.Cancel,
             actions: sendSocket("\n") as any,
-            target: States.LoggedOut,
           },
           {
             cond: (c, e) => e.data.result === loginStates.LoggedIn,
             actions: [
-              sendSocket((c, e) => `${e.data.username}\n`),
-              sendSocket((c, e) => `${e.data.password}\n`),
+              sendSocket((c, e) => `${e.data.username}\n`) as any,
+              sendSocket((c, e) => `${e.data.password}\n`) as any,
             ],
-            target: States.LoggedOut,
           },
         ],
       },

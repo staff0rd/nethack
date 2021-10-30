@@ -13,6 +13,7 @@ export enum EventTypes {
   LoggedOutDetected = "logged-out-detected",
   Play = "play",
   ReceivedData = "received-data",
+  RegisterDetected = "register-detected",
   ReceivedInstructions = "received-instructions",
   PlayDetected = "play-detected",
 }

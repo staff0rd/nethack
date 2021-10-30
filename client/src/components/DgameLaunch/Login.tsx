@@ -22,12 +22,14 @@ export const Login = () => {
   return (
     <Box
       component="form"
-      onSubmit={() => {
+      onSubmit={(e) => {
         loginService.send({
           type: EventTypes.ClickLogin,
           username,
           password,
         });
+        e.preventDefault();
+        return false;
       }}
       sx={{
         borderStyle: "solid",
