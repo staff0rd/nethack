@@ -263,8 +263,3 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
     },
   },
 });
-
-const isNotFunctionKey = (e: KeyboardEvent) => {
-  const functionKeys = range(1, 13).map((i) => `F${i}`);
-  return !functionKeys.includes(e.key);
-};

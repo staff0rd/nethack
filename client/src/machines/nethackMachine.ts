@@ -1,3 +1,4 @@
+import { range } from "lodash";
 import { GameParser } from "src/parsers/GameParser";
 import { BottomStatus } from "src/parsers/parseBottomStatusLine";
 import { TopStatus } from "src/parsers/parseTopStatusLine";
@@ -65,8 +66,11 @@ export const nethackMachine = createMachine<Context, Events>({
             });
         }
       });
-      const listener = (e: KeyboardEvent) =>
-        callback({ type: DgameEventTypes.KeyDown, e });
+      const listener = (e: KeyboardEvent) => {
+        if (isNotFunctionKey(e)) {
+          callback({ type: DgameEventTypes.KeyDown, e });
+        }
+      };
       document.addEventListener("keydown", listener);
       return () => window.removeEventListener("keydown", listener);
     },
@@ -96,3 +100,8 @@ export const nethackMachine = createMachine<Context, Events>({
     [States.Init]: {},
   },
 });
+
+const isNotFunctionKey = (e: KeyboardEvent) => {
+  const functionKeys = range(1, 13).map((i) => `F${i}`);
+  return !functionKeys.includes(e.key);
+};
