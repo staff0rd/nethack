@@ -82,30 +82,3 @@ export class GameParser {
     console.log("parse complete");
   }
 }
-
-const trimMap = (screen: string[][]) => {
-  let result: string[][] = clone(screen);
-  while (every(result, (row) => row[0] === " ")) {
-    for (let y = 0; y < screen.length; y++) {
-      result[y].shift();
-    }
-  }
-  while (every(result, (row) => row[row.length - 1] === " ")) {
-    for (let y = 0; y < screen.length; y++) {
-      result[y].pop();
-    }
-  }
-  while (every(result[0], (column) => column[column.length - 1] === " ")) {
-    result.shift();
-  }
-  while (
-    every(
-      result[result.length - 1],
-      (column) => column[column.length - 1] === " "
-    )
-  ) {
-    result.pop();
-  }
-
-  return result;
-};

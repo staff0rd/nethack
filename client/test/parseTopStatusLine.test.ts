@@ -37,61 +37,61 @@ Your current hunger status, ranging from Satiated down to Fainting. If your hung
 Additional status flags may appear after the hunger status: Conf when you're confused, FoodPois or Ill when sick, Blind when you can't see, Stun when stunned, and Hallu when hallucinating.
 */
 
-import { parseTopStatusLine } from "parsers/parseTopStatusLine";
+import { parseTopStatusLine } from "../src/parsers/parseTopStatusLine";
 
 describe("parseTopStatusLine", () => {
   it("should parse rank", () => {
     const status =
       "Stafford the Evoker       St:9 Dx:14 Co:13 In:16 Wi:12 Ch:11  Chaotic S:0     ";
     const result = parseTopStatusLine(status);
-    expect(result.rank).toBe("Stafford the Evoker");
+    expect(result!.rank).toBe("Stafford the Evoker");
   });
   it("should parse strength", () => {
     const status =
       "Stafford the Evoker       St:9 Dx:14 Co:13 In:16 Wi:12 Ch:11  Chaotic S:0     ";
     const result = parseTopStatusLine(status);
-    expect(result.strength).toBe("9");
+    expect(result!.strength).toBe("9");
   });
   it("should parse dexterity", () => {
     const status =
       "Stafford the Evoker       St:9 Dx:14 Co:13 In:16 Wi:12 Ch:11  Chaotic S:0     ";
     const result = parseTopStatusLine(status);
-    expect(result.dexterity).toBe(14);
+    expect(result!.dexterity).toBe(14);
   });
   it("should parse constitution", () => {
     const status =
       "Stafford the Evoker       St:9 Dx:14 Co:13 In:16 Wi:12 Ch:11  Chaotic S:0     ";
     const result = parseTopStatusLine(status);
-    expect(result.constitution).toBe(13);
+    expect(result!.constitution).toBe(13);
   });
   it("should parse intelligence", () => {
     const status =
       "Stafford the Evoker       St:9 Dx:14 Co:13 In:16 Wi:12 Ch:11  Chaotic S:0     ";
     const result = parseTopStatusLine(status);
-    expect(result.intelligence).toBe(16);
+    expect(result!.intelligence).toBe(16);
   });
   it("should parse wisdom", () => {
     const status =
       "Stafford the Evoker       St:9 Dx:14 Co:13 In:16 Wi:12 Ch:11  Chaotic S:0     ";
     const result = parseTopStatusLine(status);
-    expect(result.wisdom).toBe(12);
+    expect(result!.wisdom).toBe(12);
   });
   it("should parse charisma", () => {
     const status =
       "Stafford the Evoker       St:9 Dx:14 Co:13 In:16 Wi:12 Ch:11  Chaotic S:0     ";
     const result = parseTopStatusLine(status);
-    expect(result.charisma).toBe(11);
+    expect(result!.charisma).toBe(11);
   });
   it("should parse alignment", () => {
     const status =
       "Stafford the Evoker       St:9 Dx:14 Co:13 In:16 Wi:12 Ch:11  Chaotic S:0     ";
     const result = parseTopStatusLine(status);
-    expect(result.alignment).toBe("Chaotic");
+    expect(result!.alignment).toBe("Chaotic");
   });
-  it("should parse alignment modifier", () => {
+  it("should parse score", () => {
     const status =
       "Stafford the Evoker       St:9 Dx:14 Co:13 In:16 Wi:12 Ch:11  Chaotic S:0     ";
     const result = parseTopStatusLine(status);
-    expect(result.alignmentModifier).toBe(0);
+    expect(result!.score).toBe(0);
   });
 });
