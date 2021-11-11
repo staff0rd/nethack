@@ -4,6 +4,7 @@ import { ansi } from "./ansi";
 export type PrintSequence = {
   s: string;
   instruction: "print";
+  debug?: boolean;
 };
 type OscSequence = {
   s: string;
@@ -18,6 +19,7 @@ export type CsiSequence = {
   collected: string;
   params: any[];
   flag: string;
+  debug?: boolean;
 };
 type EscSequence = {
   instruction: "esc";
@@ -81,20 +83,27 @@ export const terminal = {
 };
 
 const add = (instruction: Sequences) => {
-  instructions.push(instruction);
-  sinceLastClear.push(instruction);
+  instructions.push({ ...instruction, ix });
+  sinceLastClear.push({ ...instruction, ix });
+  ix++;
 };
 
-const instructions: Sequences[] = [];
-const sinceLastClear: Sequences[] = [];
+export type IndexedSequence = Sequences & { ix: number };
+const instructions: IndexedSequence[] = [];
+const sinceLastClear: IndexedSequence[] = [];
 const parser = new AnsiParser(terminal);
+let ix = 0;
 
 export const terminalParser = {
   parse: (data: string) => {
     instructions.length = 0;
+    ix = 0;
     parser.parse(data);
     return instructions;
   },
-  clear: () => (sinceLastClear.length = 0),
+  clear: () => {
+    sinceLastClear.length = 0;
+    ix = 0;
+  },
   print: () => console.log(JSON.stringify(sinceLastClear, null, 2)),
 };

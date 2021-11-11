@@ -1,0 +1,1814 @@
+[
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [2],
+    "flag": "J"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [5, 57],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "--------"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [6, 57],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": ".......|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [7, 57],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|#......"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [8, 57],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [33],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "-"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [33],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "%"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "....|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [9, 57],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|......|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [10, 57],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": ".."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "?"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "....|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 57],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [33],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": ":"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "@"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "f"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": ".|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [12, 57],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "-----.--"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [13, 61],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "##"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [14, 61],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "#"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [15, 60],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "##"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [16, 54],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "------.-"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [17, 54],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|......|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [18, 54],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "|....<.|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [19, 54],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": ".......|"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [20, 54],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "--------"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 60],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [23, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "Stafford the Evoker       St:12 Dx:12 Co:11 In:19 Wi:11 Ch:10  Chaotic S:25"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "Dlvl:1  $:11 HP:"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "10(11)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " Pw:"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 27],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "8(8)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 31],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " AC:9  Xp:1/1 T:157"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "Hello stafford, the elven Wizard, welcome back to NetHack!"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 60],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [23, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "10(11)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " Pw:"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 27],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "8(8)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 31],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " AC:9  Xp:1/1 T:157"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 60],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [23, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "10(11)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " Pw:"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 27],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "8(8)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 31],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " AC:9  Xp:1/1 T:157"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 60],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [23, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "10(11)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " Pw:"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 27],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "8(8)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 31],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " AC:9  Xp:1/1 T:158"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 60],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "@"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": ".."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [12, 62],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "f"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "A"
+  },
+  {
+    "instruction": "execute",
+    "flag": 8
+  },
+  {
+    "instruction": "execute",
+    "flag": 8
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [23, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "10(11)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " Pw:"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 27],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "8(8)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 31],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " AC:9  Xp:1/1 T:159"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 59],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [33],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": ":"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "f@"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [12, 62],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "A"
+  },
+  {
+    "instruction": "execute",
+    "flag": 8
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "A"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "@"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 62],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "A"
+  },
+  {
+    "instruction": "execute",
+    "flag": 8
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [23, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "10(11)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " Pw:"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 27],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "8(8)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 31],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " AC:9  Xp:1/1 T:159"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "The kitten bites the newt."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [10, 62],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1, 29],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "The newt is killed!"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 60],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "f"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "A"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1, 48],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "--More--"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "The kitten eats a newt corpse."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [23, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "10(11)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " Pw:"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 27],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "8(8)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 31],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " AC:9  Xp:1/1 T:160"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [10, 62],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [23, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "10(11)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " Pw:"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 27],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "8(8)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 31],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " AC:9  Xp:1/1 T:161"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [10, 62],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 62],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "@"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "execute",
+    "flag": 8
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [23, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 1],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "K"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 17],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "10(11)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 23],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " Pw:"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 27],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "8(8)"
+  },
+  {
+    "instruction": "execute",
+    "flag": 13
+  },
+  {
+    "instruction": "execute",
+    "flag": 0
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [24, 31],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": " AC:9  Xp:1/1 T:162"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [11, 62],
+    "flag": "H"
+  },
+  {
+    "instruction": "print",
+    "s": "."
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [12, 62],
+    "flag": "H"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [1],
+    "flag": "m"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [37],
+    "flag": "m"
+  },
+  {
+    "instruction": "print",
+    "s": "@"
+  },
+  {
+    "instruction": "csi",
+    "collected": "",
+    "params": [0],
+    "flag": "m"
+  },
+  {
+    "instruction": "execute",
+    "flag": 8
+  }
+]

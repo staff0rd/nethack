@@ -7,6 +7,7 @@ import { Sequences } from "./terminalParser";
 export class GameParser {
   private x = 0;
   private y = 0;
+  private frame = 0;
   private _screen = range(1, 26).map(() => range(0, 80).map((c) => " "));
   private topStatusRaw!: string[];
   private bottomStatusRaw!: string[];
@@ -21,7 +22,7 @@ export class GameParser {
     return this._screen;
   }
 
-  constructor() {
+  constructor(private minY = 2, private maxY = 22) {
     this.clear();
   }
 
@@ -31,6 +32,7 @@ export class GameParser {
   }
 
   parse(instructions: Sequences[]) {
+    const debug = { x: 61, y: 13, watch: "x" };
     instructions?.forEach((inst) => {
       if (inst.instruction === "csi") {
         if (ansi.isClear(inst)) {
@@ -44,12 +46,27 @@ export class GameParser {
             this.x = inst.params[1];
             this.y = inst.params[0];
           }
+        } else if (inst.flag === "C") {
+          this.x++; // TODO: check if x is out of bounds
+        } else if (inst.flag === "A") {
+          this.y++; // TODO: check if y is out of bounds
         }
       } else if (inst.instruction === "print") {
         // exclude top 1 and bottom 2 lines
-        if (this.y > 1 && this.y < 23) {
+        if (this.y >= this.minY && this.y <= this.maxY) {
           for (let i = 0; i < inst.s.length; i++) {
             this._screen[this.y][this.x] = inst.s[i];
+            if (
+              (debug.x === this.x && debug.y === this.y) ||
+              debug.watch === inst.s[i]
+            ) {
+              console.warn(
+                `debug [${this.frame}]`,
+                this.y,
+                this.x,
+                JSON.stringify(inst.s[i])
+              );
+            }
             this.x++;
           }
         } else if (this.y === 23) {
@@ -77,6 +94,8 @@ export class GameParser {
           );
           if (bottomStatus) this.bottomStatus = bottomStatus;
         }
+      } else if (inst.instruction === "execute" && inst.flag === 8) {
+        this.frame++;
       }
     });
     console.log("parse complete");
