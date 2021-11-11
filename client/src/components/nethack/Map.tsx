@@ -5,7 +5,7 @@ import { GlobalStateContext } from "src/GlobalStateContext";
 import { useSelector } from "@xstate/react";
 import { ActorRefFrom } from "xstate";
 import { nethackMachine } from "src/machines/nethackMachine";
-import { red, grey, blueGrey } from "@mui/material/colors";
+import { red, grey, blueGrey, brown } from "@mui/material/colors";
 
 const WALL_COLOR = PIXI.utils.string2hex(grey[700]);
 const CORRIDOR_COLOR = PIXI.utils.string2hex(grey[500]);
@@ -13,6 +13,7 @@ const FLOOR_COLOR = PIXI.utils.string2hex(grey[400]);
 const BACKGROUND_COLOR = PIXI.utils.string2hex(blueGrey[900]);
 const PLAYER_COLOR = PIXI.utils.string2hex(red[300]);
 const UNKNOWN_COLOR = PIXI.utils.string2hex(red[600]);
+const DOOR_COLOR = PIXI.utils.string2hex(brown[500]);
 
 export const Map = () => {
   const [app, setApp] = useState<PIXI.Application>();
@@ -32,26 +33,32 @@ export const Map = () => {
         for (let x = 0; x < screen[y].length; x++) {
           switch (screen[y][x]) {
             case "|":
+            case ">":
+            case "<":
             case "-": {
-              drawTile(app, x, y, width, height, WALL_COLOR);
+              drawTile(app, x, y, width, height, screen[y][x], WALL_COLOR);
+              break;
+            }
+            case "+": {
+              drawTile(app, x, y, width, height, screen[y][x], DOOR_COLOR);
               break;
             }
             case "#": {
-              drawTile(app, x, y, width, height, CORRIDOR_COLOR);
+              drawTile(app, x, y, width, height, screen[y][x], CORRIDOR_COLOR);
               break;
             }
             case ".": {
-              drawTile(app, x, y, width, height, FLOOR_COLOR);
+              drawTile(app, x, y, width, height, screen[y][x], FLOOR_COLOR);
               break;
             }
             case "@": {
-              drawTile(app, x, y, width, height, PLAYER_COLOR);
+              drawTile(app, x, y, width, height, screen[y][x], PLAYER_COLOR);
               break;
             }
             case " ":
               break;
             default: {
-              drawTile(app, x, y, width, height, UNKNOWN_COLOR);
+              drawTile(app, x, y, width, height, screen[y][x], UNKNOWN_COLOR);
             }
           }
         }
@@ -67,6 +74,7 @@ function drawTile(
   y: number,
   width: number,
   height: number,
+  label: string,
   color: number
 ) {
   const g = new PIXI.Graphics()
@@ -75,4 +83,12 @@ function drawTile(
     .endFill();
   app.stage.addChild(g);
   g.position.set(x * width, y * height);
+  const text = new PIXI.Text(label, {
+    fontFamily: "Ubuntu Mono",
+    fontSize: 16,
+  });
+  text.position.set(width / 2, height / 2);
+  text.pivot.set(text.width / 2, text.height / 2);
+  text.resolution = 3;
+  g.addChild(text);
 }

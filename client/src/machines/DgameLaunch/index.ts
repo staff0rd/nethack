@@ -78,6 +78,9 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
     [EventTypes.KeyDown]: {
       actions: forwardTo("socket"),
     },
+    [EventTypes.PrintParser]: {
+      actions: terminalParser.print as any,
+    },
     [EventTypes.ReceivedInstructions]: {
       cond: (c) => c.isPlaying,
       actions: [
@@ -207,9 +210,6 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
         [EventTypes.RegisterDetected]: States.RegisterNewUser,
         [EventTypes.ClearParser]: {
           actions: terminalParser.clear as any,
-        },
-        [EventTypes.PrintParser]: {
-          actions: terminalParser.print as any,
         },
         [EventTypes.Automate]: {
           actions: [
