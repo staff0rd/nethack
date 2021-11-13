@@ -43,7 +43,7 @@ const useTelnetClient = (io) => {
       host: "localhost",
       port: 23,
       // shellPrompt: "/ $#",
-      timeout: 5000,
+      timeout: 15000,
       echoLines: 0,
       stripShellPrompt: false,
     });
