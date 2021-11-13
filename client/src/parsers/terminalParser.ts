@@ -91,6 +91,7 @@ const add = (instruction: Sequences) => {
 export type IndexedSequence = Sequences & { ix: number };
 const instructions: IndexedSequence[] = [];
 const sinceLastClear: IndexedSequence[] = [];
+let buffer: string[] = [];
 const parser = new AnsiParser(terminal);
 let ix = 0;
 
@@ -99,11 +100,16 @@ export const terminalParser = {
     instructions.length = 0;
     ix = 0;
     parser.parse(data);
+    buffer.push(data);
     return instructions;
   },
   clear: () => {
     sinceLastClear.length = 0;
+    buffer.length = 0;
     ix = 0;
   },
-  print: () => console.log(JSON.stringify(sinceLastClear, null, 2)),
+  print: () =>
+    console.log(
+      JSON.stringify({ data: buffer, instructions: sinceLastClear }, null, 2)
+    ),
 };
