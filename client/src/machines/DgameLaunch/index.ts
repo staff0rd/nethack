@@ -135,18 +135,17 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
       socket.on("data", function (data) {
         callback({ type: EventTypes.ReceivedData, data });
       });
-      socket.on("conn", (data) => {
-        console.log(data);
-      });
 
       context.xterm.terminal.onKey((ev) => socket.emit("data", ev.key));
       socket.on("disconnect", function () {
+        console.log("disconnected");
         send(EventTypes.Disconnected);
       });
 
       onEvent((e) => {
         switch (e.type) {
           case "data": {
+            console.log("sending to socket", e.payload);
             socket.emit(e.type, e.payload);
             break;
           }
@@ -176,7 +175,7 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
     [States.LoggedIn]: {
       on: {
         [EventTypes.Play]: {
-          actions: sendSocket("p") as any,
+          actions: [() => console.log("playing"), sendSocket("p") as any],
         },
         [EventTypes.PlayDetected]: States.Nethack,
       },

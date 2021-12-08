@@ -12,6 +12,7 @@ const useTelnetClient = (io) => {
               "\r\n*** TELNET SHELL ERROR: " + err.message + " ***\r\n"
             );
           socket.on("data", function (data) {
+            console.log("received:", data);
             stream.write(data);
           });
           stream
