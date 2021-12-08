@@ -9,7 +9,7 @@ const App = () => {
   const theme = useTheme();
   const [xterm, setXterm] = useState<XTerm | null>(null);
   const [showTerminal, setShowTerminal] = useState(true);
-  const [shouldConnect, setShouldConnect] = useState(false);
+  const [shouldConnect, setShouldConnect] = useState(true);
 
   useEffect(() => {
     setShowTerminal(true);

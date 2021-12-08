@@ -1,6 +1,6 @@
 import { Typography, Box, useTheme, MenuItem } from "@mui/material";
 import { useSelector } from "@xstate/react";
-import { useContext, Children } from "react";
+import { useContext } from "react";
 import { GlobalStateContext } from "../../GlobalStateContext";
 import { LoggedOut } from "./LoggedOut";
 import { LoggedIn } from "./LoggedIn";
