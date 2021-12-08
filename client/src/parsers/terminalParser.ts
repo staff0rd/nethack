@@ -107,6 +107,7 @@ export const terminalParser = {
     sinceLastClear.length = 0;
     buffer.length = 0;
     ix = 0;
+    console.log("Terminal cleared");
   },
   print: () =>
     console.log(
