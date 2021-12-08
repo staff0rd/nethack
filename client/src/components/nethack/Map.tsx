@@ -65,7 +65,6 @@ export const Map = () => {
       }
     }
   }, [map, app]);
-  console.log(map);
   return <Pixi backgroundColor={BACKGROUND_COLOR} onAppChange={setApp} />;
 };
 function drawTile(

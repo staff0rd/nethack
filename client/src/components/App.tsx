@@ -1,5 +1,5 @@
 import { Box, Grid, MenuItem, useTheme } from "@mui/material";
-import { DgameLaunch } from "./DgameLaunch";
+import { DgameLaunchExplorer, DgameLaunchWithSocket } from "./DgameLaunch";
 
 import { useEffect, useState } from "react";
 import { XTerm } from "xterm-for-react";
@@ -48,7 +48,12 @@ const App = () => {
             }}
           >
             <Box>
-              {xterm && <DgameLaunch xtermRef={xterm} menuItems={menuItems} />}
+              {xterm &&
+                (shouldConnect ? (
+                  <DgameLaunchWithSocket xterm={xterm} menuItems={menuItems} />
+                ) : (
+                  <DgameLaunchExplorer xterm={xterm} menuItems={menuItems} />
+                ))}
             </Box>
           </Box>
         </Grid>

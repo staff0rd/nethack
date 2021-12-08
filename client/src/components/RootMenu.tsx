@@ -6,6 +6,7 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 export type MenuItems = {
   onClick: React.MouseEventHandler<HTMLLIElement>;
   text: string;
+  shouldClose?: boolean;
 }[];
 
 type Props = {
@@ -38,7 +39,7 @@ export const RootMenu = ({ items }: Props) => {
               <MenuItem
                 key={index}
                 onClick={(e) => {
-                  popupState.close();
+                  item.shouldClose && popupState.close();
                   item.onClick(e);
                 }}
               >

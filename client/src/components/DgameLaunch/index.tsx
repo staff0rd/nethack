@@ -1,6 +1,6 @@
 import { Typography, Box, useTheme, MenuItem } from "@mui/material";
 import { useSelector } from "@xstate/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GlobalStateContext } from "../../GlobalStateContext";
 import { LoggedOut } from "./LoggedOut";
 import { LoggedIn } from "./LoggedIn";
@@ -13,6 +13,8 @@ import { dgamelaunchMachine } from "../../machines/DgameLaunch";
 import { XTerm } from "xterm-for-react";
 import { MenuItems, RootMenu } from "../RootMenu";
 import { EventTypes } from "../../machines/DgameLaunch/EventTypes";
+import { io } from "socket.io-client";
+import new_format from "../../../test/screens/new_format.json";
 
 const DgameLaunchComponent = () => {
   const globalServices = useContext(GlobalStateContext);
@@ -51,13 +53,24 @@ const DgameLaunchComponent = () => {
 };
 
 type Props = {
-  xtermRef: XTerm;
+  xterm: XTerm;
   menuItems: MenuItems;
 };
 
-export const DgameLaunch = ({ xtermRef, menuItems }: Props) => {
+const socket = io("http://localhost:3001", {
+  secure: true,
+  reconnection: true,
+  rejectUnauthorized: false,
+  transports: ["websocket"],
+});
+
+export const DgameLaunchWithSocket = ({ xterm, menuItems }: Props) => {
   const dgamelaunchService = useInterpret(
-    dgamelaunchMachine.withContext({ xterm: xtermRef, isPlaying: false })
+    dgamelaunchMachine(socket).withContext({
+      xterm,
+      isPlaying: false,
+    }),
+    []
   );
 
   return (
@@ -65,6 +78,51 @@ export const DgameLaunch = ({ xtermRef, menuItems }: Props) => {
       <RootMenu
         items={[
           ...menuItems,
+          {
+            onClick: () => dgamelaunchService.send(EventTypes.PrintParser),
+            text: "Print Terminal",
+          },
+        ]}
+      ></RootMenu>
+      <DgameLaunchComponent />
+    </GlobalStateContext.Provider>
+  );
+};
+
+const data = [];
+
+export const DgameLaunchExplorer = ({ xterm, menuItems }: Props) => {
+  const [step, setStep] = useState(-1);
+  const dgamelaunchService = useInterpret(
+    dgamelaunchMachine().withContext({
+      xterm,
+      isPlaying: true,
+    }),
+    []
+  );
+
+  return (
+    <GlobalStateContext.Provider value={{ dgamelaunchService }}>
+      <RootMenu
+        items={[
+          ...menuItems,
+          {
+            onClick: () => {
+              const nextStep = step + 1;
+              setStep(nextStep);
+              dgamelaunchService.send({
+                type: EventTypes.ReceivedData,
+                data: new_format.data[nextStep],
+              });
+            },
+            text: `Next ${step}`,
+            shouldClose: false,
+          },
+          {
+            onClick: () => dgamelaunchService.send(EventTypes.ClearParser),
+            text: "Clear Terminal",
+            shouldClose: false,
+          },
           {
             onClick: () => dgamelaunchService.send(EventTypes.PrintParser),
             text: "Print Terminal",
