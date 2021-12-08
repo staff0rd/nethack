@@ -32,7 +32,6 @@ export class GameParser {
   }
 
   parse(instructions: Sequences[]) {
-    const debug = { x: 61, y: 13, watch: "x" };
     instructions?.forEach((inst) => {
       if (inst.instruction === "csi") {
         if (ansi.isClear(inst)) {
@@ -49,24 +48,14 @@ export class GameParser {
         } else if (inst.flag === "C") {
           this.x++; // TODO: check if x is out of bounds
         } else if (inst.flag === "A") {
-          this.y++; // TODO: check if y is out of bounds
+          // CURSOR UP
+          this.y--; // TODO: check if y is out of bounds
         }
       } else if (inst.instruction === "print") {
         // exclude top 1 and bottom 2 lines
         if (this.y >= this.minY && this.y <= this.maxY) {
           for (let i = 0; i < inst.s.length; i++) {
             this._screen[this.y][this.x] = inst.s[i];
-            if (
-              (debug.x === this.x && debug.y === this.y) ||
-              debug.watch === inst.s[i]
-            ) {
-              console.warn(
-                `debug [${this.frame}]`,
-                this.y,
-                this.x,
-                JSON.stringify(inst.s[i])
-              );
-            }
             this.x++;
           }
         } else if (this.y === 23) {
@@ -94,8 +83,22 @@ export class GameParser {
           );
           if (bottomStatus) this.bottomStatus = bottomStatus;
         }
-      } else if (inst.instruction === "execute" && inst.flag === 8) {
-        this.frame++;
+      } else if (inst.instruction === "execute") {
+        switch (inst.flag) {
+          case 8: {
+            if (this.y > 0) {
+              this.x--;
+            }
+            break;
+          }
+          case 13: {
+            this.x = 0;
+          }
+          case 0:
+            break;
+          default:
+            throw new Error(`unhandled execute flag ${inst.flag}`);
+        }
       }
     });
     console.log("parse complete");
