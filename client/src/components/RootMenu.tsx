@@ -1,16 +1,12 @@
 import * as React from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { ReactNode } from "react";
-import PopupState, {
-  bindTrigger,
-  bindMenu,
-  InjectedProps,
-} from "material-ui-popup-state";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
-export type MenuItems =
-  | ((popupState: InjectedProps) => ReactNode)[]
-  | ((popupState: InjectedProps) => ReactNode);
+export type MenuItems = {
+  onClick: React.MouseEventHandler<HTMLLIElement>;
+  text: string;
+}[];
 
 type Props = {
   items: MenuItems;
@@ -38,9 +34,17 @@ export const RootMenu = ({ items }: Props) => {
             <MenuIcon />
           </Button>
           <Menu {...bindMenu(popupState)}>
-            {Array.isArray(items)
-              ? items.map((c) => React.Children.toArray(c(popupState)))
-              : items(popupState)}
+            {items.map((item, index) => (
+              <MenuItem
+                key={index}
+                onClick={(e) => {
+                  popupState.close();
+                  item.onClick(e);
+                }}
+              >
+                {item.text}
+              </MenuItem>
+            ))}
           </Menu>
         </React.Fragment>
       )}

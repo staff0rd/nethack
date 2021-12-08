@@ -16,26 +16,14 @@ const App = () => {
   }, []);
 
   const menuItems: MenuItems = [
-    (popupState) => (
-      <MenuItem
-        onClick={() => {
-          popupState.close();
-          setShouldConnect(!shouldConnect);
-        }}
-      >
-        {`${shouldConnect ? "Disconnect" : "Connect"}`}
-      </MenuItem>
-    ),
-    (popupState) => (
-      <MenuItem
-        onClick={() => {
-          popupState.close();
-          setShowTerminal(!showTerminal);
-        }}
-      >
-        {`${showTerminal ? "Hide" : "Show"} Terminal`}
-      </MenuItem>
-    ),
+    {
+      onClick: () => setShouldConnect(!shouldConnect),
+      text: `${shouldConnect ? "Disconnect" : "Connect"}`,
+    },
+    {
+      onClick: () => setShowTerminal(!showTerminal),
+      text: `${showTerminal ? "Hide" : "Show"} Terminal`,
+    },
   ];
 
   return (

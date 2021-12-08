@@ -60,26 +60,17 @@ export const DgameLaunch = ({ xtermRef, menuItems }: Props) => {
     dgamelaunchMachine.withContext({ xterm: xtermRef, isPlaying: false })
   );
 
-  const rootMenuItems: MenuItems = [
-    (popupState) =>
-      Array.isArray(menuItems)
-        ? menuItems.map((c) => Children.toArray(c(popupState)))
-        : menuItems(popupState),
-    (popupState) => (
-      <MenuItem
-        onClick={() => {
-          dgamelaunchService.send(EventTypes.PrintParser);
-          popupState.close();
-        }}
-      >
-        Print Terminal
-      </MenuItem>
-    ),
-  ];
-
   return (
     <GlobalStateContext.Provider value={{ dgamelaunchService }}>
-      <RootMenu items={rootMenuItems}></RootMenu>
+      <RootMenu
+        items={[
+          ...menuItems,
+          {
+            onClick: () => dgamelaunchService.send(EventTypes.PrintParser),
+            text: "Print Terminal",
+          },
+        ]}
+      ></RootMenu>
       <DgameLaunchComponent />
     </GlobalStateContext.Provider>
   );
