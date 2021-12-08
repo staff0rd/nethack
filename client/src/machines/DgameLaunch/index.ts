@@ -155,10 +155,6 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
           }
         }
       });
-
-      return () => {
-        socket.close();
-      };
     },
   },
   states: {
