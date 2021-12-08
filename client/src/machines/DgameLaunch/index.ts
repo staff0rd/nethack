@@ -8,7 +8,6 @@ import {
   Sequences,
   terminalParser,
 } from "src/parsers/terminalParser";
-import { range } from "lodash";
 import { nethackMachine } from "../nethackMachine";
 import { EventTypes } from "./EventTypes";
 
@@ -49,7 +48,7 @@ export type Events =
   | { type: EventTypes.LoginDetected };
 
 export type Context = {
-  xterm: React.RefObject<XTerm>;
+  xterm: XTerm;
   isPlaying: boolean;
 };
 
@@ -97,7 +96,7 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
     [EventTypes.LoggedOutDetected]: States.LoggedOut,
     [EventTypes.ReceivedData]: {
       actions: [
-        (c, e) => c.xterm.current!.terminal.write(e.data),
+        (c, e) => c.xterm.terminal.write(e.data),
         send((c, e) => {
           const instructions = terminalParser.parse(e.data);
           for (let i = 0; i < instructions.length; i++) {
@@ -140,9 +139,7 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
         console.log(data);
       });
 
-      context.xterm.current!.terminal.onKey((ev) =>
-        socket.emit("data", ev.key)
-      );
+      context.xterm.terminal.onKey((ev) => socket.emit("data", ev.key));
       socket.on("disconnect", function () {
         send(EventTypes.Disconnected);
       });
@@ -154,11 +151,15 @@ export const dgamelaunchMachine = createMachine<Context, Events>({
             break;
           }
           case EventTypes.KeyDown: {
-            context.xterm.current?.terminal.keyDown(e.e);
+            context.xterm.terminal.keyDown(e.e);
             break;
           }
         }
       });
+
+      return () => {
+        socket.close();
+      };
     },
   },
   states: {

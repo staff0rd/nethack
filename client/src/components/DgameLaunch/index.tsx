@@ -1,6 +1,6 @@
-import { Typography, Box, useTheme } from "@mui/material";
+import { Typography, Box, useTheme, MenuItem } from "@mui/material";
 import { useSelector } from "@xstate/react";
-import { useContext } from "react";
+import { useContext, Children } from "react";
 import { GlobalStateContext } from "../../GlobalStateContext";
 import { LoggedOut } from "./LoggedOut";
 import { LoggedIn } from "./LoggedIn";
@@ -8,8 +8,13 @@ import { States } from "../../machines/DgameLaunch";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { Nethack } from "../nethack";
+import { useInterpret } from "@xstate/react";
+import { dgamelaunchMachine } from "../../machines/DgameLaunch";
+import { XTerm } from "xterm-for-react";
+import { MenuItems, RootMenu } from "../RootMenu";
+import { EventTypes } from "../../machines/DgameLaunch/EventTypes";
 
-export const DgameLaunch = () => {
+const DgameLaunchComponent = () => {
   const globalServices = useContext(GlobalStateContext);
   const state = useSelector(
     globalServices.dgamelaunchService,
@@ -43,4 +48,39 @@ export const DgameLaunch = () => {
   }
 
   return <Typography>{state}</Typography>;
+};
+
+type Props = {
+  xtermRef: XTerm;
+  menuItems: MenuItems;
+};
+
+export const DgameLaunch = ({ xtermRef, menuItems }: Props) => {
+  const dgamelaunchService = useInterpret(
+    dgamelaunchMachine.withContext({ xterm: xtermRef, isPlaying: false })
+  );
+
+  const rootMenuItems: MenuItems = [
+    (popupState) =>
+      Array.isArray(menuItems)
+        ? menuItems.map((c) => Children.toArray(c(popupState)))
+        : menuItems(popupState),
+    (popupState) => (
+      <MenuItem
+        onClick={() => {
+          dgamelaunchService.send(EventTypes.PrintParser);
+          popupState.close();
+        }}
+      >
+        Print Terminal
+      </MenuItem>
+    ),
+  ];
+
+  return (
+    <GlobalStateContext.Provider value={{ dgamelaunchService }}>
+      <RootMenu items={rootMenuItems}></RootMenu>
+      <DgameLaunchComponent />
+    </GlobalStateContext.Provider>
+  );
 };
