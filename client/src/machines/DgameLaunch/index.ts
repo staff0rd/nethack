@@ -3,6 +3,7 @@ import { Socket as SocketIo } from "socket.io-client";
 import { loginMachine, States as loginStates } from "./loginMachine";
 import { registerMachine, States as registerStates } from "./registerMachine";
 import { XTerm } from "xterm-for-react";
+import { IDisposable } from "xterm";
 import {
   PrintSequence,
   Sequences,
@@ -51,6 +52,8 @@ export type Context = {
   xterm: XTerm;
   isPlaying: boolean;
 };
+
+let onKeyListener: IDisposable;
 
 const sendSocket = <TContext, TEvent extends EventObject, T>(
   payload:
@@ -126,6 +129,8 @@ export const dgamelaunchMachine = (socket?: Socket) => {
       // see https://github.com/statelyai/xstate/issues/549#issuecomment-512004633
       src: (context) => (callback, onEvent) => {
         if (socket) {
+          // @ts-ignore this does exist
+          socket.removeAllListeners();
           socket.on("connect", () => {
             callback(EventTypes.Connected);
           });
@@ -138,7 +143,10 @@ export const dgamelaunchMachine = (socket?: Socket) => {
             callback({ type: EventTypes.ReceivedData, data });
           });
 
-          context.xterm.terminal.onKey((ev) => socket.emit("data", ev.key));
+          onKeyListener && onKeyListener.dispose();
+          onKeyListener = context.xterm.terminal.onKey((ev) =>
+            socket.emit("data", ev.key)
+          );
           socket.on("disconnect", function () {
             console.log("disconnected");
             send(EventTypes.Disconnected);
