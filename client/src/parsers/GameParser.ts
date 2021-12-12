@@ -126,6 +126,5 @@ export class GameParser {
         }
       }
     });
-    console.log("parse complete");
   }
 }

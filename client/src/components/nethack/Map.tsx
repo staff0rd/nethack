@@ -26,7 +26,6 @@ export const Map = () => {
     if (app && app.view && map) {
       const width = app.view.width / 80;
       const height = app.view.height / 25;
-      console.log(`${width}x${height}`);
       const screen = map.split("\n");
       app.stage.removeChildren();
       for (let y = 0; y < screen.length; y++) {
