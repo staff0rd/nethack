@@ -29,6 +29,11 @@ export class GameParser {
   clear() {
     this.topStatusRaw = range(0, 80).map((p) => " ");
     this.bottomStatusRaw = range(0, 80).map((p) => " ");
+    for (let x = 0; x < 80; x++) {
+      for (let y = 0; y < 25; y++) {
+        this._screen[y][x] = " ";
+      }
+    }
   }
 
   parse(instructions: Sequences[]) {
@@ -58,6 +63,8 @@ export class GameParser {
               this._screen[this.y][this.x + i] = " ";
             }
           } else throw new Error("not implemented");
+        } else if (inst.flag === "m") {
+          // SGR (Select Graphic Rendition) https://en.wikipedia.org/wiki/ANSI_escape_code#SGR
         } else
           throw new Error(
             `Unknown csi instruction ${JSON.stringify(inst, null, 2)}`
