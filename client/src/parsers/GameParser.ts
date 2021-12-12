@@ -102,11 +102,18 @@ export class GameParser {
           if (bottomStatus) this.bottomStatus = bottomStatus;
         }
       } else if (inst.instruction === "execute") {
+        // https://github.com/xtermjs/xterm.js/blob/952d0efde2670a47f5162a23c7d9e2774e15b4c9/src/common/data/EscapeSequences.ts#L10
+        // https://github.com/xtermjs/xterm.js/blob/952d0efde2670a47f5162a23c7d9e2774e15b4c9/src/common/InputHandler.ts#L375-L388
         switch (inst.flag) {
           case 8: {
             if (this.y > 0) {
               this.x--;
             }
+            break;
+          }
+          case 10: {
+            // line feed https://github.com/xtermjs/xterm.js/blob/952d0efde2670a47f5162a23c7d9e2774e15b4c9/src/common/InputHandler.ts#L787
+            this.y++;
             break;
           }
           case 13: {
