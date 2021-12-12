@@ -50,7 +50,18 @@ export class GameParser {
         } else if (inst.flag === "A") {
           // CURSOR UP
           this.y--; // TODO: check if y is out of bounds
-        }
+        } else if (inst.flag === "K") {
+          // DECSEL—Selective Erase in Line https://vt100.net/docs/vt510-rm/DECSEL.html
+          if (inst.params[0] === 0) {
+            // Erase from cursor to end of line
+            for (let i = 0; i < 80 - this.x; i++) {
+              this._screen[this.y][this.x + i] = " ";
+            }
+          } else throw new Error("not implemented");
+        } else
+          throw new Error(
+            `Unknown csi instruction ${JSON.stringify(inst, null, 2)}`
+          );
       } else if (inst.instruction === "print") {
         // exclude top 1 and bottom 2 lines
         if (this.y >= this.minY && this.y <= this.maxY) {

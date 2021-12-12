@@ -73,6 +73,7 @@ export const dgamelaunchMachine = (socket?: Socket) => {
       [EventTypes.KeyDown]: {
         actions: forwardTo("socket"),
       },
+      [EventTypes.PlayDetected]: States.Nethack,
       [EventTypes.ClearParser]: {
         actions: terminalParser.clear as any,
       },

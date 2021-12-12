@@ -1,6 +1,6 @@
 import { Typography, Box, useTheme, MenuItem } from "@mui/material";
 import { useSelector } from "@xstate/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalStateContext } from "../../GlobalStateContext";
 import { LoggedOut } from "./LoggedOut";
 import { LoggedIn } from "./LoggedIn";
@@ -14,7 +14,7 @@ import { XTerm } from "xterm-for-react";
 import { MenuItems, RootMenu } from "../RootMenu";
 import { EventTypes } from "../../machines/DgameLaunch/EventTypes";
 import { io } from "socket.io-client";
-import new_format from "../../../test/screens/new_format.json";
+import json from "../../../test/screens/climb_stairs.json";
 
 const DgameLaunchComponent = () => {
   const globalServices = useContext(GlobalStateContext);
@@ -79,6 +79,11 @@ export const DgameLaunchWithSocket = ({ xterm, menuItems }: Props) => {
         items={[
           ...menuItems,
           {
+            onClick: () => dgamelaunchService.send(EventTypes.ClearParser),
+            text: "Clear Terminal",
+            shouldClose: false,
+          },
+          {
             onClick: () => dgamelaunchService.send(EventTypes.PrintParser),
             text: "Print Terminal",
           },
@@ -101,6 +106,10 @@ export const DgameLaunchExplorer = ({ xterm, menuItems }: Props) => {
     []
   );
 
+  useEffect(() => {
+    dgamelaunchService.send(EventTypes.PlayDetected);
+  }, []);
+
   return (
     <GlobalStateContext.Provider value={{ dgamelaunchService }}>
       <RootMenu
@@ -112,7 +121,7 @@ export const DgameLaunchExplorer = ({ xterm, menuItems }: Props) => {
               setStep(nextStep);
               dgamelaunchService.send({
                 type: EventTypes.ReceivedData,
-                data: new_format.data[nextStep],
+                data: json.data[nextStep],
               });
             },
             text: `Next ${step}`,
