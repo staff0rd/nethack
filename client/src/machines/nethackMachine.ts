@@ -49,7 +49,6 @@ export const nethackMachine = createMachine<Context, Events>({
     src: () => (callback, onEvent) => {
       const gameParser = new GameParser();
       onEvent((e) => {
-        console.log("new event:", e.type);
         if (e.type === DgameEventTypes.ReceivedInstructions) {
           gameParser.parse(e.instructions);
           callback({ type: EventTypes.UpdateMap, map: gameParser.map });
