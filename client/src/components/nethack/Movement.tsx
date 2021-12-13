@@ -21,6 +21,7 @@ import { EventTypes } from "../../machines/DgameLaunch/EventTypes";
  *   >  down                m<dir>:   move without picking up objects/fighting
  *                          F<dir>:   fight even if you don't sense a monster
  */
+
 export const Movement = () => {
   const theme = useTheme();
   const service = useContext(GlobalStateContext).dgamelaunchService;

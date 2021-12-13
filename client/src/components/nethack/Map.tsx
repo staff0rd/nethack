@@ -6,6 +6,7 @@ import { useSelector } from "@xstate/react";
 import { ActorRefFrom } from "xstate";
 import { nethackMachine } from "src/machines/nethackMachine";
 import { red, grey, blueGrey, brown } from "@mui/material/colors";
+import { useHitbox } from "./useHitbox";
 
 const WALL_COLOR = PIXI.utils.string2hex(grey[700]);
 const CORRIDOR_COLOR = PIXI.utils.string2hex(grey[500]);
@@ -20,52 +21,14 @@ type Size = {
   height: number;
 };
 
-const getAngle = (x1: number, y1: number, x2: number, y2: number) => {
-  return Math.atan2(y2 - y1, x2 - x1);
-};
-
-const getDegrees = (radians: number) => {
-  return (radians * 180) / Math.PI;
-};
-
-const getRadians = (degrees: number) => {
-  return (degrees * Math.PI) / 180;
-};
-
 export const Map = () => {
   const [app, setApp] = useState<PIXI.Application>();
   const width = (app?.view.width ?? 1) / 80;
   const height = (app?.view.height ?? 1) / 25;
   const [player] = useState(createPlayer(PLAYER_COLOR, { width, height }));
-  const [hitbox] = useState<PIXI.Graphics>(
-    new PIXI.Graphics().beginFill(0xff0000, 0).drawRect(0, 0, 1, 1)
-  );
-  useEffect(() => {
-    if (app) {
-      hitbox.width = width * 80;
-      hitbox.height = height * 25;
-      hitbox.interactive = true;
-      app.stage.addChild(hitbox);
-      hitbox.on("pointermove", (event) => {
-        var position = new PIXI.Point(player.position.x, player.position.y);
-        var global = new PIXI.Point(event.data.global.x, event.data.global.y);
-        var local = mapContainer.toLocal(global);
-        var positionLocal = mapContainer.toLocal(position);
-        var rect = new PIXI.Rectangle(
-          positionLocal.x - width / 2,
-          positionLocal.y - height / 2,
-          width,
-          height
-        );
-        if (!rect.contains(local.x, local.y)) {
-          var angle = getAngle(position.x, position.y, global.x, global.y);
-          player.rotation = getRadians(Math.round(getDegrees(angle) / 45) * 45);
-        }
-      });
-    }
-  }, [hitbox, app]);
 
   const [mapContainer] = useState<PIXI.Container>(new PIXI.Container());
+  const hitbox = useHitbox(app, width, height, mapContainer, player);
   useEffect(() => {
     if (app) {
       app.stage.removeChildren();
