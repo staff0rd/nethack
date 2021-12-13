@@ -15,19 +15,76 @@ const PLAYER_COLOR = PIXI.utils.string2hex(red[300]);
 const UNKNOWN_COLOR = PIXI.utils.string2hex(red[600]);
 const DOOR_COLOR = PIXI.utils.string2hex(brown[500]);
 
+type Size = {
+  width: number;
+  height: number;
+};
+
+const getAngle = (x1: number, y1: number, x2: number, y2: number) => {
+  return Math.atan2(y2 - y1, x2 - x1);
+};
+
+const getDegrees = (radians: number) => {
+  return (radians * 180) / Math.PI;
+};
+
+const getRadians = (degrees: number) => {
+  return (degrees * Math.PI) / 180;
+};
+
 export const Map = () => {
   const [app, setApp] = useState<PIXI.Application>();
+  const width = (app?.view.width ?? 1) / 80;
+  const height = (app?.view.height ?? 1) / 25;
+  const [player] = useState(createPlayer(PLAYER_COLOR, { width, height }));
+  const [hitbox] = useState<PIXI.Graphics>(
+    new PIXI.Graphics().beginFill(0xff0000, 0).drawRect(0, 0, 1, 1)
+  );
+  useEffect(() => {
+    if (app) {
+      hitbox.width = width * 80;
+      hitbox.height = height * 25;
+      hitbox.interactive = true;
+      app.stage.addChild(hitbox);
+      hitbox.on("pointermove", (event) => {
+        var position = new PIXI.Point(player.position.x, player.position.y);
+        var global = new PIXI.Point(event.data.global.x, event.data.global.y);
+        var local = mapContainer.toLocal(global);
+        var positionLocal = mapContainer.toLocal(position);
+        var rect = new PIXI.Rectangle(
+          positionLocal.x - width / 2,
+          positionLocal.y - height / 2,
+          width,
+          height
+        );
+        if (!rect.contains(local.x, local.y)) {
+          var angle = getAngle(position.x, position.y, global.x, global.y);
+          player.rotation = getRadians(Math.round(getDegrees(angle) / 45) * 45);
+        }
+      });
+    }
+  }, [hitbox, app]);
+
+  const [mapContainer] = useState<PIXI.Container>(new PIXI.Container());
+  useEffect(() => {
+    if (app) {
+      app.stage.removeChildren();
+      app.stage.addChild(mapContainer, hitbox);
+      mapContainer.scale.set(1);
+    }
+  }, [app]);
+
   const services = useContext(GlobalStateContext);
   const nethackService = useSelector(services.dgamelaunchService, (state) => {
     return state.children.nethack as ActorRefFrom<typeof nethackMachine>;
   });
+
   const map = useSelector(nethackService, (state) => state.context.map);
+
   useEffect(() => {
     if (app && app.view && map) {
-      const width = app.view.width / 80;
-      const height = app.view.height / 25;
       const screen = map.split("\n");
-      app.stage.removeChildren();
+      mapContainer.removeChildren();
       for (let y = 0; y < screen.length; y++) {
         for (let x = 0; x < screen[y].length; x++) {
           switch (screen[y][x]) {
@@ -35,58 +92,147 @@ export const Map = () => {
             case ">":
             case "<":
             case "-": {
-              drawTile(app, x, y, width, height, screen[y][x], WALL_COLOR);
+              drawTile(
+                mapContainer,
+                x,
+                y,
+                width,
+                height,
+                screen[y][x],
+                WALL_COLOR
+              );
               break;
             }
             case "+": {
-              drawTile(app, x, y, width, height, screen[y][x], DOOR_COLOR);
+              drawTile(
+                mapContainer,
+                x,
+                y,
+                width,
+                height,
+                screen[y][x],
+                DOOR_COLOR
+              );
               break;
             }
             case "#": {
-              drawTile(app, x, y, width, height, screen[y][x], CORRIDOR_COLOR);
+              drawTile(
+                mapContainer,
+                x,
+                y,
+                width,
+                height,
+                screen[y][x],
+                CORRIDOR_COLOR
+              );
               break;
             }
             case ".": {
-              drawTile(app, x, y, width, height, screen[y][x], FLOOR_COLOR);
+              drawTile(
+                mapContainer,
+                x,
+                y,
+                width,
+                height,
+                screen[y][x],
+                FLOOR_COLOR
+              );
               break;
             }
             case "@": {
-              drawTile(app, x, y, width, height, screen[y][x], PLAYER_COLOR);
+              drawTile(
+                mapContainer,
+                x,
+                y,
+                width,
+                height,
+                screen[y][x],
+                FLOOR_COLOR
+              );
+              const tile = drawTile(
+                mapContainer,
+                x,
+                y,
+                width,
+                height,
+                screen[y][x],
+                PLAYER_COLOR,
+                createPlayer(PLAYER_COLOR, { width, height }, player)
+              );
+              tile.position.x += width / 2;
+              tile.position.y += height / 2;
               break;
             }
             case " ":
               break;
             default: {
-              drawTile(app, x, y, width, height, screen[y][x], UNKNOWN_COLOR);
+              drawTile(
+                mapContainer,
+                x,
+                y,
+                width,
+                height,
+                screen[y][x],
+                UNKNOWN_COLOR
+              );
             }
           }
         }
       }
     }
   }, [map, app]);
+
   return <Pixi backgroundColor={BACKGROUND_COLOR} onAppChange={setApp} />;
 };
+
 function drawTile(
-  app: PIXI.Application,
+  mapContainer: PIXI.Container,
   x: number,
   y: number,
   width: number,
   height: number,
   label: string,
-  color: number
-) {
-  const g = new PIXI.Graphics()
-    .beginFill(color)
-    .drawRect(0, 0, width, height)
-    .endFill();
-  app.stage.addChild(g);
-  g.position.set(x * width, y * height);
-  const text = new PIXI.Text(label, {
-    fontFamily: "Ubuntu Mono",
-    fontSize: 16,
-  });
-  text.position.set(width / 2, height / 2);
-  text.pivot.set(text.width / 2, text.height / 2);
-  text.resolution = 3;
-  g.addChild(text);
+  color: number,
+  reference?: PIXI.Graphics
+): PIXI.Graphics {
+  if (!reference) {
+    reference = new PIXI.Graphics();
+    reference.beginFill(color).drawRect(0, 0, width, height).endFill();
+    const text = new PIXI.Text(label, {
+      fontFamily: "Ubuntu Mono",
+      fontSize: 16,
+    });
+    text.position.set(width / 2, height / 2);
+    text.pivot.set(text.width / 2, text.height / 2);
+    text.resolution = 3;
+    reference.addChild(text);
+  }
+  mapContainer.addChild(reference);
+  reference.position.set(x * width, y * height);
+  return reference;
 }
+
+const createPlayer = (
+  color: number,
+  size: Size,
+  reference?: PIXI.Graphics
+): PIXI.Graphics => {
+  const lineWidth = 1;
+  var g = (reference ?? new PIXI.Graphics()).clear().beginFill(color);
+  g.lineStyle(lineWidth, 0xff0000);
+  g.drawEllipse(
+    size.width / 2,
+    size.height / 2,
+    size.width / 2 - lineWidth / 2,
+    size.height / 2 - lineWidth / 2
+  );
+  g.moveTo(size.width * 0.2, size.height * 0.5);
+  g.lineTo(size.width * 0.8, size.height * 0.5);
+  g.moveTo(size.width * 0.8, size.height * 0.5);
+  g.lineTo(size.width * 0.5, size.height * 0.2);
+  g.moveTo(size.width * 0.8, size.height * 0.5);
+  g.lineTo(size.width * 0.5, size.height * 0.8);
+
+  g.pivot.set(size.width / 2, size.height / 2);
+  return g;
+};
